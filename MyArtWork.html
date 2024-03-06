@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta name = "viewport" content="width=device-width,initial-scale=1.0">
+        <title>MyArtWork</title>
+        <link rel="stylesheet" href="css/DefaultStyle.css">
+        <link rel="stylesheet" href="css/Nav.css">
+        <link rel="stylesheet" href="css/WorkBox.css">
+        <link rel="stylesheet" href="css/Works.css">
+        <script src="js/album.js"></script>
+    </head>
+    <body>
+        <a href="#PageTop">
+            <div class="IconToTop">
+                <img src="image/ToTop.png" alt="Fixed Image">
+            </div>
+        </a>
+
+        <nav class="shell">
+            <ul class="buttons">
+                <li class="li">
+                    个人简介
+                    <ul>
+                        <a href="index.html" target="_blank"><li>简介</li></a>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="li">
+                    个人作品
+                    <ul>
+                        <a href="MyArtWork.html" target="_blank"><li>美术设计</li></a>
+                        <a href="MyProgramWork.html" target="_blank"><li>游戏程序</li></a>
+                    </ul>
+                </li>
+                <li class="li">
+                    练习作品
+                    <ul>
+                        <a href="PracticeArtWork.html" target="_blank"><li>美术设计</li></a>
+                        <a href="PracticeProgramWork.html" target="_blank"><li>游戏程序</li></a>
+                    </ul>
+                </li>
+                <li class="li">
+                    博主媒体账号
+                    <ul>
+                        <a href=""><li>bilibili</li></a>
+                        <a href=""><li>微信公众号</li></a>
+                        <a href=""><li>youtube</li></a>
+                        <a href=""><li>facebook</li></a>
+                    </ul>
+                </li>
+                <li class="li">
+                    用户
+                    <ul>
+                        <a href=""><li>登录</li></a>
+                        <a href=""><li>注册</li></a>
+                        <a href=""><li>登出</li></a>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <section class="sec" id="PageTop">
+            <a href="#LiviaWorks">
+                <div class="Livia pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>Livia(war)</h1>
+                        <p>blender</p>
+                        <p>Substance Painter</p>
+                        <p>PhotoShop</p>
+                    </div>
+                </div>
+            </a>
+            <a href="#BlueNightWorks">
+                <div class="BlueNight pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>BlueNight</h1>
+                        <p>Blender</p>
+                        <p>Substance Painter</p>
+                        <p>PhotoShop</p>
+                    </div>
+                </div>
+            </a>
+            <a href="#MingLuanWorks">
+                <div class="MingLuan pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1 style="font-size:40px">鸣銮女角色设计</h1>
+                        <h4>AI painting</h4>
+                        <p>StableDiffusion</p>
+                        <p>PhotoShop</p>
+                    </div>
+                </div>
+            </a>
+            <a href="#SoundMakeWorks">
+                <div class="SoundMake pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>拟音</h1>
+                        <p>blender</p>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <!-- 第一个轮播容器 -->
+        <section class="sec" id="carousel1">
+            <ul class="banner" id="LiviaWorks"></ul>
+            <script>
+                var imagePathPrefix1 = "image/Livia/Livia";
+                var imageExtension1 = ".jpg";
+                var Max1 = "600px";
+                var num1 = 6;
+                initializeCarousel(document.getElementById("carousel1"), imagePathPrefix1, imageExtension1, Max1, num1);
+            </script>
+        </section>
+
+        <!-- 第二个轮播容器 -->
+        <section class="sec" id="carousel2">
+            <ul class="banner" id="BlueNightWorks" style="left: -10vw;top: 20vh;"></ul>
+            <script>
+                var imagePathPrefix2 = "image/BlueNight/BlueNight";
+                var imageExtension2 = ".jpg";
+                var Max2 = "600px";
+                var num2 = 7;
+                initializeCarousel(document.getElementById("carousel2"), imagePathPrefix2, imageExtension2, Max2, num2);
+            </script>
+        </section>
+
+        <!-- 第三个轮播容器 -->
+        <section class="sec" id="ImgSection">
+            <div class="text-box" id="MingLuanWorks">
+                <h1>鸣銮女</br>角色设计</h1>
+                <p></p>
+                <p>取得网易的角色设计优秀奖</p>
+                <p>用StableDiffusion和PS制作</p>
+            </div>
+            <img src="image/MingLuan/MingLuan1.jpg" alt="MingLuan Image">
+        </section>
+        <!-- 第一个视频容器 -->
+        <section class="sec" id="videoSection">
+            <div class="text-box" id="SoundMakeWorks">
+                <h1>水音效</h1>
+                <p></p>
+                <p>用blender物理水系统做了段动画</p>
+                <p>然后用钥匙和玻璃杯模拟了冰落水的声音，有点过于尖锐（懒得去取冰块）</p>
+            </div>
+            <video controls>
+                <source src="image/Animation/Water.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <div class="loader-wrapper">
+            <span><h1>Loading......</h1></span>
+        </div>
+        <script src="js/Loading.js"></script>
+        
+    </body>
+</html>

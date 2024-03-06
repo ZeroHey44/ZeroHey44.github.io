@@ -1,0 +1,66 @@
+.shell{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10vw;
+    height: 100vh;
+    background:linear-gradient(to left,rgba(0, 149, 27, 1),rgba(0, 27, 75, 0));
+    transition-duration: 0.4s;
+}
+.shell:hover{
+    background-color: rgb(0, 221, 255, 0.5);
+}
+.buttons{
+    margin: 60px 0;
+    color: rgba(255, 255, 255);
+}
+.li{
+    letter-spacing: 2px;
+    font: 600 17px '';
+    padding: 48px 52px;
+    transition: .3s;
+}
+.li::after{
+    content: '';
+    position: absolute;
+    left: 20px;
+    margin-top: -22px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(rgba(0, 0, 0, 0.5),rgb(143, 255, 188));
+    box-shadow: 0 0 5px 1px rgba(0, 27, 63, 0.5);
+    border-radius: 50%;
+}
+.buttons>li:hover{
+    background-color: rgba(0, 8, 23, 0.7);
+}
+.li ul{
+    width: 0;
+    height: 100vh;
+    padding: 60px 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    background-color: rgb(17, 17, 17);
+    transition: .3s;
+}
+.li ul li{
+    padding: 20px 24px;
+    transition: .3s;
+}
+.li:hover ul{
+    width: 15vh;
+}
+.li ul li:hover{
+    background-color: blanchedalmond;
+    color: black;
+}
+.li a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the color of the parent (.li) */
+}
+.li a:hover {
+    color: black;/* Add your desired hover color here */ 
+}

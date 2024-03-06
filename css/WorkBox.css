@@ -1,0 +1,118 @@
+.sec{
+    position: relative;
+    height: 100vh;
+    width: 90vw;
+}
+section{
+    scroll-snap-align: center;
+}
+.pt{
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+    width: 300px;
+    float: left;
+    margin: 150px 0px 0px 100px;
+    background-color: rgba(236, 241, 219, 0.3);
+    box-shadow: 0 0 15px rgb(59, 73, 95);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.5s ease 0s;
+}
+.pt:hover{
+    cursor: pointer;
+    box-shadow: 0 0 15px 3px rgb(11, 0, 70);
+    transform: scale(1.1);
+}
+
+.imghid{
+    overflow: hidden;
+}
+.Livia .img{
+    background-image: url("../image/Livia/7.jpg");
+}
+.BlueNight .img{
+    background-image: url("../image/BlueNight/BlueNight1.jpg");
+}
+.MingLuan .img{
+    background-image: url("../image/MingLuan/MingLuan1.jpg");
+}
+.SoundMake .img{
+    background-image: url("../image/Animation/WaterSound.jpg");
+}
+.RPG2023 .img{
+    background-image: url("../image/RPGGame/2023RPG1.jpg");
+}
+.Animation .img{
+    background-image: url("../image/Animation/Bullet.jpg");
+}
+.MagicCabin .img{
+    background-image: url("../image/MagicCabin/MagicCabin1.jpg");
+}
+.PostProcess .img{
+    background-image: url("../image/Stylized/Stylized1.jpg");
+}
+.VFX .img{
+    background-image: url("../image/VFX/VFX1.png");
+}
+
+.pt .img{
+    height: 200px;
+    width: 300px;
+    background-size: cover;
+    background-position: 0px 0px;
+    transition: all 0.5s ease 0s;
+    opacity: 0.8;
+}
+
+.pt .img:hover{
+    transform: scale(1.1);
+}
+
+.pt .txt{
+    height: 400px;
+    width: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.pt .txt h1{
+    text-align:center;
+    font-size: 3em;
+    color: rgb(28, 44, 68);
+    height: 100px;
+    width: 300px;
+}
+
+.pt .txt h2{
+    text-align:center;
+    font-size: 2em;
+    color: rgb(165, 0, 157);
+    height: 200px;
+    width: 300px;
+}
+
+.pt .txt h3{
+    text-align:center;
+    font-size: 2em;
+    color: rgb(114, 182, 202);
+    height: 200px;
+    width: 300px;
+}
+.pt .txt h4{
+    text-align:center;
+    font-size: 1.5em;
+    color: rgb(95, 179, 204);
+    height: 70px;
+    width: 300px;
+}
+
+.pt .txt p{
+    margin-top: -2px;
+    text-align:center;
+    word-wrap: break-word;
+    color: rgb(114, 182, 202);
+    height: 50px;
+}
