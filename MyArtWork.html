@@ -62,22 +62,57 @@
         </nav>
 
         <section class="sec" id="PageTop">
+            <a href="#UpToHeaven">
+                <div class="UpToHeaven pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>骨肉登仙</h1>
+                        <h5>动画</h5>
+                        <p>blender</p>
+                        <p>Substance Painter</p>
+                    </div>
+                </div>
+            </a>
             <a href="#LiviaWorks">
                 <div class="Livia pt">
                     <div class="imghid"><div class="img"></div></div>
                     <div class="txt">
                         <h1>Livia(war)</h1>
+                        <h5>模型</h5>
                         <p>blender</p>
                         <p>Substance Painter</p>
                         <p>PhotoShop</p>
                     </div>
                 </div>
             </a>
+            <a href="#ChineseFishing">
+                <div class="ChineseFishing pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>垂钓</h1>
+                        <h5>动画</h5>
+                        <p>blender</p>
+                    </div>
+                </div>
+            </a>
+            <a href="#ChineseMoutain">
+                <div class="ChineseMoutain pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1>蓝墨空山</h1>
+                        <h5>动画</h5>
+                        <p>blender</p>
+                        <p>Marvelous Designer</p>
+                    </div>
+                </div>
+            </a>
+
             <a href="#BlueNightWorks">
                 <div class="BlueNight pt">
                     <div class="imghid"><div class="img"></div></div>
                     <div class="txt">
                         <h1>BlueNight</h1>
+                        <h5>插图</h5>
                         <p>Blender</p>
                         <p>Substance Painter</p>
                         <p>PhotoShop</p>
@@ -89,9 +124,20 @@
                     <div class="imghid"><div class="img"></div></div>
                     <div class="txt">
                         <h1 style="font-size:40px">鸣銮女角色设计</h1>
+                        <h5>三视图</h5>
                         <h4>AI painting</h4>
                         <p>StableDiffusion</p>
                         <p>PhotoShop</p>
+                    </div>
+                </div>
+            </a>
+            <a href="#DragonWorld">
+                <div class="DragonWorld pt">
+                    <div class="imghid"><div class="img"></div></div>
+                    <div class="txt">
+                        <h1 style="font-size:40px">龙腾火舞</h1>
+                        <h5>概念设计插画</h5>
+                        <p>UE5</p>
                     </div>
                 </div>
             </a>
@@ -100,12 +146,27 @@
                     <div class="imghid"><div class="img"></div></div>
                     <div class="txt">
                         <h1>拟音</h1>
+                        <h5>动画</h5>
                         <p>blender</p>
                     </div>
                 </div>
             </a>
         </section>
 
+        <!-- 第一个视频容器 -->
+        <section class="sec" id="videoSection">
+            <div class="text-box" id="UpToHeaven">
+                <h1>骨肉登仙</h1>
+                <p></p>
+                <p>用于参与第八届世界渲染大赛</p>
+                <p>blender全流程制作</p>
+                <p></p>
+            </div>
+            <video controls>
+                <source src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/GuoFeng/EightPwinsherUptoHeaven.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
         <!-- 第一个轮播容器 -->
         <section class="sec" id="carousel1">
             <ul class="banner" id="LiviaWorks"></ul>
@@ -116,6 +177,32 @@
                 var num1 = 6;
                 initializeCarousel(document.getElementById("carousel1"), imagePathPrefix1, imageExtension1, Max1, num1);
             </script>
+        </section>
+        <!-- 第二个视频容器 -->
+        <section class="sec" id="videoSection">
+            <div class="text-box" id="ChineseFishing">
+                <h1>垂钓</h1>
+                <p>blender</p>
+                <p>水墨风格练习</p>
+                <p></p>
+            </div>
+            <video controls>
+                <source src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/GuoFeng/Moutain.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <!-- 第三个视频容器 -->
+        <section class="sec" id="videoSection">
+            <div class="text-box" id="ChineseMoutain">
+                <h1>蓝墨空山</h1>
+                <p>blender</p>
+                <p>水墨风格练习</p>
+                <p></p>
+            </div>
+            <video controls>
+                <source src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/GuoFeng/TBM1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </section>
 
         <!-- 第二个轮播容器 -->
@@ -140,7 +227,19 @@
             </div>
             <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/MingLuan/MingLuan1.jpg" alt="MingLuan Image">
         </section>
-        <!-- 第一个视频容器 -->
+        
+        <!-- 第四个轮播容器 -->
+        <section class="sec" id="ImgSection">
+            <div class="text-box" id="DragonWorld">
+                <h1>龙腾火舞</h1>
+                <p></p>
+                <p>通过UE5制作，资产来自互联网</p>
+                <p></p>
+            </div>
+            <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/UEdragonWorld.png" alt="UEdragonWorld Image">
+        </section>
+
+        <!-- 第四个视频容器 -->
         <section class="sec" id="videoSection">
             <div class="text-box" id="SoundMakeWorks">
                 <h1>水音效</h1>
