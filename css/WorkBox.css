@@ -9,10 +9,10 @@ section{
 .pt{
     display: flex;
     flex-direction: column;
-    height: 700px;
-    width: 300px;
+    height: 60vh;
+    width: 15vw;
     float: left;
-    margin: 15px 0px 0px 100px;
+    margin: 5% 3% 1% 3%;
     background-color: rgba(236, 241, 219, 0.3);
     box-shadow: 0 0 15px rgb(59, 73, 95);
     border-radius: 15px;
@@ -67,10 +67,13 @@ section{
 .DragonWorld .img{
     background-image: url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/UEdragonWorld.png");
 }
+.SculptureDog .img{
+    background-image: url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/SculptureDog/Dog2.png");
+}
 
 .pt .img{
-    height: 200px;
-    width: 300px;
+    height: 25vh;
+    width: 100%;
     background-size: cover;
     background-position: 0px 0px;
     transition: all 0.5s ease 0s;
@@ -83,7 +86,7 @@ section{
 
 .pt .txt{
     height: 400px;
-    width: 300px;
+    width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -92,10 +95,10 @@ section{
 
 .pt .txt h1{
     text-align:center;
-    font-size: 3em;
+    font-size: 2em;
     color: rgb(28, 44, 68);
     height: 100px;
-    width: 300px;
+    width: 100%;
 }
 
 .pt .txt h2{
@@ -103,7 +106,7 @@ section{
     font-size: 2em;
     color: rgb(165, 0, 157);
     height: 200px;
-    width: 300px;
+    width: 100%;
 }
 
 .pt .txt h3{
@@ -111,21 +114,21 @@ section{
     font-size: 2em;
     color: rgb(114, 182, 202);
     height: 200px;
-    width: 300px;
+    width: 100%;
 }
 .pt .txt h4{
     text-align:center;
     font-size: 1.5em;
     color: rgb(95, 179, 204);
     height: 70px;
-    width: 300px;
+    width: 100%;
 }
 .pt .txt h5{
     text-align:center;
     font-size: 1.0em;
     color: rgb(0, 50, 97);
     height: 70px;
-    width: 300px;
+    width: 100%;
 }
 
 .pt .txt p{
