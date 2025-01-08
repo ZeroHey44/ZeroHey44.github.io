@@ -1,37 +1,65 @@
-.pg{
-    height: 100vh;
-    overflow: hidden;
-    perspective: 3px;
-}
-.pg div{
-    position: relative;
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box; /* 确保内边距和边框包含在元素尺寸内 */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-style: 30px;
-    letter-spacing: 2px;
-}
-.image{
-    transform: translateZ(-1px) scale(1.6);
-    background-size: cover;
-    height: 100vh;
-    z-index: -1;
-}
-.text{
-    height: 50vh;
-    background-color: white;
-}
-.text h1{
-    color: black;
-}
-.heading{
-    z-index: -1;
-    transform: translateY(-30vh) translateZ(1px);
-    color:white;
-    font-size: 30px;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
 }
 
-/* ImageLink */
-.Standing .img{
-    background-image: url("image/PhotoGraphy/Xingjiang/_MG_0460.png");
+.pg {
+    height: 80vh; /* 容器高度占满视口高度 */
+    width: 80%; /* 容器宽度占满视口宽度 */    
+    /* overflow-y: scroll; /* 允许垂直滚动 */
+    /* overflow-x: hidden; /* 禁止水平滚动 */
+    padding: 5vw; /* 给容器添加相对视口宽度的内边距，会根据窗口大小改变 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 让内部元素水平居中 */
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column; /* 让子元素垂直排列 */
+    gap: 15vh; /* 进一步增大子元素之间的间距，使用视口高度单位，会根据窗口大小改变 */
+    width: 100%; /* 占满父容器的宽度 */
+}
+
+.image-content {
+    position: relative;
+    border-radius: 10px; /* 给图片容器添加圆角效果 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 给图片容器添加阴影效果 */
+    overflow: hidden; /* 确保内部元素不超出容器 */
+    padding: 2vw; /* 给图片容器添加相对视口宽度的内边距，会根据窗口大小改变 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 让内部元素水平居中 */
+}
+
+.image-content img {
+    max-width: 100%; /* 图片最大宽度为容器宽度，避免图片超出 */
+    height: auto; /* 图片高度自动调整，保持比例 */
+    display: block; /* 避免图片下方出现间隙 */
+    transition: opacity 0.3s ease; /* 为图片添加透明度过渡效果 */
+}
+
+.image-text {
+    position: absolute;
+    color: white;
+    top: 50%; /* 使文字在图片垂直方向居中 */
+    left: 50%; /* 使文字在图片水平方向居中 */
+    transform: translate(-50%, -50%); /* 精确居中文字 */
+    z-index: 1;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    opacity: 0; /* 初始时文字透明 */
+    transition: opacity 0.3s ease; /* 为文字添加透明度过渡效果 */
+}
+
+.image-content:hover.image-text {
+    opacity: 1; /* 鼠标悬停在 image-content 上时，文字显示 */
 }
