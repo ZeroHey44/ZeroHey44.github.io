@@ -14,7 +14,7 @@ body, html {
     width: 80%; /* 容器宽度占满视口宽度 */    
     /* overflow-y: scroll; /* 允许垂直滚动 */
     /* overflow-x: hidden; /* 禁止水平滚动 */
-    padding: 5vw; /* 给容器添加相对视口宽度的内边距，会根据窗口大小改变 */
+    padding: 20vw; /* 给容器添加相对视口宽度的内边距，会根据窗口大小改变 */
     display: flex;
     flex-direction: column;
     align-items: center; /* 让内部元素水平居中 */
@@ -23,7 +23,7 @@ body, html {
 .image-container {
     display: flex;
     flex-direction: column; /* 让子元素垂直排列 */
-    gap: 15vh; /* 进一步增大子元素之间的间距，使用视口高度单位，会根据窗口大小改变 */
+    gap: 40vh; /* 进一步增大子元素之间的间距，使用视口高度单位，会根据窗口大小改变 */
     width: 100%; /* 占满父容器的宽度 */
 }
 

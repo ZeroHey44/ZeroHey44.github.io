@@ -138,3 +138,11 @@ section{
     color: rgb(114, 182, 202);
     height: 50px;
 }
+
+p1{
+    margin-top: 10px;
+    text-align:end;
+    word-wrap: break-word;
+    color: rgb(255, 255, 255);
+    height: 10px;
+}
