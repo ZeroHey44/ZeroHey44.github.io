@@ -108,6 +108,14 @@ section{
     color: rgb(255, 255, 255);
     height: 100px;
 }
+.text-box p1{
+    margin-top: 10px;
+    text-align:end;
+    word-wrap: break-word;
+    color: rgb(255, 255, 255);
+    height: 10px;
+
+}
 
 #ImgSection {
     display: flex;
