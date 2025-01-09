@@ -139,7 +139,7 @@ section{
     height: 50px;
 }
 
-p1{
+.p1{
     margin-top: 10px;
     text-align:end;
     word-wrap: break-word;
