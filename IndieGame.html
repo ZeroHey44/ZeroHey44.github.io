@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
         <meta name = "viewport" content="width=device-width,initial-scale=1.0">
-        <title>MyProgramWork</title>
+        <title>MyArtWork</title>
         <link rel="stylesheet" href="css/DefaultStyle.css">
         <link rel="stylesheet" href="css/Nav.css">
         <link rel="stylesheet" href="css/WorkBox.css">
@@ -16,6 +16,7 @@
                 <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/ToTop.png" alt="Fixed Image">
             </div>
         </a>
+
 
         <nav class="shell">
             <ul class="buttons">
@@ -71,15 +72,17 @@
             </ul>
         </nav>
 
-        <section class="sec" id="PageTop">
-            <a href="#RPG">
-                <div class="RPG2023 pt">
+        <section class="sec" style="height: 170vh;" id="PageTop">
+            <a href="#UpToHeaven">
+                <div class="UpToHeaven pt">
                     <div class="imghid"><div class="img"></div></div>
                     <div class="txt">
-                        <h1>RPG(C++)</h1>
-                        <h5>游戏程序</h5>
-                        <p>UE5</p>
+                        <h1>骨肉登仙</h1>
+                        <h5>动画</h5>
                         <p>blender</p>
+                        <p>Substance Painter</p>
+                        <p1>完成时间：2024/3/10</p1>
+                        <p1>周期：3周</p1>
                     </div>
                 </div>
             </a>
@@ -87,29 +90,34 @@
 
         <!-- 第一个视频容器 -->
         <section class="sec" id="videoSection">
-            <div class="text-box" id="RPG">
-                <h1>RPG</h1>
-                <p>独立制作，几乎用了UE所有的基本功能</p>
-                <p>纯C++的系统框架。</p>
-                <p>包含了基础的RPG游戏框架。</p>
-                <p>由于没有加上华丽的动作系统与美术，所以显得很粗糙。</p>
-                <p>场景均由自己搭建（包括进入游戏时的主界面）</p>
-                <p>主要了跟随Stephen Ulibarri的
-                    <a href="https://www.udemy.com/course/unreal-engine-5-the-ultimate-game-developer-course/" style="text-decoration:none;color:#d4ff00;" target="_blank">课程。</a>
-                </p>
-                <p1>制作时间：2023/7/30</p1>
-                <p1>周期：30天</p1>
+            <div class="text-box" id="UpToHeaven">
+                <h1>骨肉登仙</h1>
+                <p></p>
+                <p>用于参与第八届世界渲染大赛</p>
+                <p>blender全流程制作</p>
+                <p></p>
             </div>
             <video controls>
-                <source src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/RPGGame/2023RPG.mp4" type="video/mp4">
+                <source src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/2024/GuoFeng/EightPwinsherUptoHeaven.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+        </section>
+        <!-- 第一个轮播容器 -->
+        <section class="sec" id="carousel1">
+            <ul class="banner" id="LiviaWorks"></ul>
+            <script>
+                var imagePathPrefix1 = "https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Livia/Livia";
+                var imageExtension1 = ".jpg";
+                var Max1 = "600px";
+                var num1 = 6;
+                initializeCarousel(document.getElementById("carousel1"), imagePathPrefix1, imageExtension1, Max1, num1);
+            </script>
         </section>
 
         <div class="loader-wrapper">
             <span><h1>Loading......</h1></span>
         </div>
         <script src="js/Loading.js"></script>
-                
+        
     </body>
 </html>
