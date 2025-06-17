@@ -106,7 +106,7 @@ body{
 }
 
 .video-container {
-  position: absolute;
+  position: relative;
   padding-bottom: 56.25%; /* 16:9 ±ÈÀý */
   height: 0;
   overflow: hidden;
