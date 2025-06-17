@@ -110,7 +110,8 @@ body{
   padding-bottom: 56.25%; /* 16:9 ±ÈÀý */
   height: 0;
   overflow: hidden;
-  max-width: 60%;
+  max-width: 80%;
+  max-height: 80%;
 }
 
 .video-container iframe {
