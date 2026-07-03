@@ -90,8 +90,8 @@ a {
 .quick-home::after {
     content: "回到简介";
     position: absolute;
-    left: calc(100% + 12px);
-    top: 50%;
+    left: 50%;
+    bottom: calc(100% + 12px);
     min-width: max-content;
     padding: 9px 12px;
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -103,20 +103,27 @@ a {
     letter-spacing: 1px;
     opacity: 0;
     pointer-events: none;
-    transform: translate(-6px, -50%);
+    transform: translate(-50%, 6px);
     transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
 .quick-home:hover {
     transform: translateY(-4px) scale(1.03);
     border-color: rgba(97, 214, 198, 0.62);
-    background-size: 126%, 100%, 100%;
+    background-image:
+        linear-gradient(rgba(7, 16, 20, 0.46), rgba(7, 16, 20, 0.46)),
+        url("../image/Trans1.png"),
+        radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.22), transparent 62%),
+        linear-gradient(rgba(7, 16, 20, 0.62), rgba(7, 16, 20, 0.62));
+    background-repeat: no-repeat;
+    background-size: 100%, 126%, 100%, 100%;
+    background-position: center, center 52%, center, center;
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36), 0 0 22px rgba(97, 214, 198, 0.14);
 }
 
 .quick-home:hover::after {
     opacity: 1;
-    transform: translate(0, -50%);
+    transform: translate(-50%, 0);
 }
 
 .portfolio-page {
@@ -321,6 +328,119 @@ a {
 
 .concept-page .work-card:has(.work-media:hover) .work-media img {
     transform: scale(1.045);
+}
+
+.showcase-page .studio-hero {
+    min-height: auto;
+    align-items: center;
+    padding: 58px 0 32px;
+}
+
+.showcase-page .concept-intro .studio-hero {
+    padding: 0;
+    scroll-snap-align: none;
+}
+
+.showcase-page .studio-hero h1 {
+    max-width: 780px;
+    font-size: clamp(44px, 6vw, 86px);
+    line-height: 0.98;
+}
+
+.showcase-page .hero-lead {
+    max-width: 760px;
+    font-size: clamp(16px, 1.6vw, 20px);
+}
+
+.showcase-page .project-index {
+    margin-bottom: 0;
+    scroll-snap-align: none;
+}
+
+.showcase-page .section-heading {
+    display: none;
+}
+
+.showcase-page .work-list {
+    gap: 24vh;
+    padding: 12vh 0;
+    scroll-snap-align: none;
+}
+
+.showcase-page .work-card {
+    min-height: 76vh;
+    max-height: calc(100vh - 96px);
+    align-items: center;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+.showcase-page .work-media {
+    min-height: 54vh;
+}
+
+.showcase-page .work-media img,
+.showcase-page .work-media video,
+.showcase-page .work-media iframe {
+    min-height: 54vh;
+}
+
+.showcase-page .work-media.contain img,
+.showcase-page .work-media.contain video,
+.showcase-page .work-media.contain iframe {
+    object-fit: contain;
+}
+
+.showcase-page .work-card:hover .work-media img,
+.showcase-page .work-card:hover .work-media video {
+    transform: scale(1.025);
+}
+
+.game-page .work-list {
+    gap: 24vh;
+    padding: 12vh 0;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+}
+
+.game-page .work-card {
+    min-height: 76vh;
+    max-height: calc(100vh - 96px);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+.game-page .work-media,
+.game-page .work-media iframe {
+    min-height: 54vh;
+}
+
+.photo-page .photo-grid {
+    grid-template-columns: 1fr;
+    gap: 22vh;
+    padding: 12vh 0;
+    scroll-snap-align: none;
+}
+
+.photo-page .photo-card {
+    min-height: min(78vh, 760px);
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+.photo-page .photo-card img {
+    height: min(64vh, 620px);
+    object-fit: contain;
+    background: rgba(0, 0, 0, 0.28);
+    transition: transform 0.48s ease, filter 0.48s ease;
+}
+
+.photo-page .photo-card:hover img {
+    transform: scale(1.025);
+    filter: saturate(1.06) contrast(1.04);
 }
 
 .index-card,
@@ -747,6 +867,38 @@ a {
 
     .concept-page .work-card:has(.work-media:hover) .work-media img {
         transform: none;
+    }
+
+    .showcase-page .studio-hero {
+        padding: 0 0 32px;
+    }
+
+    .showcase-page .work-list,
+    .photo-page .photo-grid {
+        gap: 14vh;
+        padding: 8vh 0;
+    }
+
+    .showcase-page .work-card {
+        min-height: auto;
+        max-height: none;
+    }
+
+    .showcase-page .work-media,
+    .showcase-page .work-media img,
+    .showcase-page .work-media video,
+    .showcase-page .work-media iframe,
+    .game-page .work-media,
+    .game-page .work-media iframe {
+        min-height: 240px;
+    }
+
+    .photo-page .photo-card {
+        min-height: auto;
+    }
+
+    .photo-page .photo-card img {
+        height: 300px;
     }
 
     .photo-card img {
