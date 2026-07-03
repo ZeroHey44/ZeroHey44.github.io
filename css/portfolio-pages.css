@@ -396,6 +396,59 @@ a {
     transform: scale(1.025);
 }
 
+.art-page .project-index {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.art-page .index-card {
+    min-height: 190px;
+}
+
+.art-page .index-card img,
+.art-page .index-card video {
+    height: 86px;
+}
+
+.art-page .index-card div {
+    padding: 14px;
+}
+
+.art-page .index-card h2 {
+    font-size: 18px;
+}
+
+.art-page .index-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.art-page .work-card {
+    height: min(76vh, 720px);
+    min-height: 0;
+    overflow: hidden;
+}
+
+.art-page .work-media {
+    align-self: stretch;
+    height: 100%;
+    min-height: 0;
+    max-height: calc(100vh - 150px);
+}
+
+.art-page .work-media img,
+.art-page .work-media video,
+.art-page .work-media iframe {
+    height: 100%;
+    min-height: 0;
+    object-fit: contain;
+    background: rgba(0, 0, 0, 0.36);
+}
+
 .game-page .work-list {
     gap: 24vh;
     padding: 12vh 0;
@@ -747,6 +800,10 @@ a {
         grid-column: 1 / -1;
     }
 
+    .art-page .project-index {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .work-card,
     .work-card.reverse {
         grid-template-columns: 1fr;
@@ -884,6 +941,14 @@ a {
         max-height: none;
     }
 
+    .art-page .project-index {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .art-page .work-card {
+        height: auto;
+    }
+
     .showcase-page .work-media,
     .showcase-page .work-media img,
     .showcase-page .work-media video,
@@ -891,6 +956,17 @@ a {
     .game-page .work-media,
     .game-page .work-media iframe {
         min-height: 240px;
+    }
+
+    .art-page .work-media {
+        height: 240px;
+        max-height: none;
+    }
+
+    .art-page .work-media img,
+    .art-page .work-media video,
+    .art-page .work-media iframe {
+        height: 100%;
     }
 
     .photo-page .photo-card {
