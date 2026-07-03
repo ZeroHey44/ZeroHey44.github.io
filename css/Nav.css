@@ -1,66 +1,264 @@
-.shell{
+.shell {
     position: fixed;
-    top: 0;
+    top: 50%;
     right: 0;
-    width: 10vw;
-    height: 100vh;
-    background:linear-gradient(to left,rgb(0, 88, 129),rgba(0, 27, 75, 0));
-    transition-duration: 0.4s;
-}
-.shell:hover{
-    background-color: rgb(0, 221, 255, 0.5);
-}
-.buttons{
-    margin: 60px 0;
-    color: rgba(255, 255, 255);
-}
-.li{
-    letter-spacing: 2px;
-    font: 600 17px '';
-    padding: 48px 52px;
-    transition: .3s;
-}
-.li::after{
-    content: '';
-    position: absolute;
-    left: 20px;
-    margin-top: -22px;
-    display: block;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(rgb(169, 255, 166),rgb(143, 255, 188));
-    box-shadow: 0 0 5px 1px rgba(0, 27, 63, 0.5);
-    border-radius: 50%;
-}
-.buttons>li:hover{
-    background-color: rgba(0, 8, 23, 0.7);
-}
-.li ul{
-    width: 0;
-    height: 100vh;
-    padding: 60px 0;
-    position: absolute;
-    top: 0;
-    right: 0;
+    z-index: 1000;
+    width: 42px;
+    height: min(86vh, 720px);
+    transform: translateY(-50%);
+    border: 1px solid transparent;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    background: rgba(7, 16, 20, 0.18);
+    backdrop-filter: blur(12px);
+    box-shadow: -18px 0 50px rgba(0, 0, 0, 0);
     overflow: hidden;
-    background-color: rgb(17, 17, 17);
-    transition: .3s;
+    transition: width 0.32s ease, background 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
 }
-.li ul li{
-    padding: 20px 24px;
-    transition: .3s;
+
+.shell::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 2px;
+    height: 130px;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: linear-gradient(180deg, transparent, rgba(97, 214, 198, 0.9), rgba(225, 183, 109, 0.72), transparent);
+    box-shadow: 0 0 22px rgba(97, 214, 198, 0.46);
+    transition: opacity 0.24s ease;
 }
-.li:hover ul{
-    width: 15vh;
+
+.shell::after {
+    content: "MENU";
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    color: rgba(246, 242, 233, 0.62);
+    font: 700 11px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 3px;
+    transition: opacity 0.24s ease;
 }
-.li ul li:hover{
-    background-color: blanchedalmond;
-    color: black;
+
+.shell:hover,
+.shell:focus-within {
+    width: 286px;
+    border-color: rgba(255, 255, 255, 0.14);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(7, 16, 20, 0.94), rgba(9, 18, 24, 0.84));
+    box-shadow: -24px 0 90px rgba(0, 0, 0, 0.38);
 }
+
+.shell:hover::before,
+.shell:hover::after,
+.shell:focus-within::before,
+.shell:focus-within::after {
+    opacity: 0;
+}
+
+.shell:hover .buttons,
+.shell:focus-within .buttons {
+    border-left: 1px solid rgba(97, 214, 198, 0.24);
+}
+
+.buttons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 24px 18px;
+    overflow-y: auto;
+    color: rgba(246, 242, 233, 0.88);
+    opacity: 0;
+    transform: translateX(24px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(97, 214, 198, 0.35) transparent;
+    transition: opacity 0.24s ease 0.08s, transform 0.28s ease 0.04s;
+}
+
+.buttons::-webkit-scrollbar {
+    width: 6px;
+}
+
+.buttons::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(97, 214, 198, 0.32);
+}
+
+.buttons::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.buttons::before {
+    content: "ZEROHEY";
+    display: block;
+    margin: 2px 4px 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(246, 242, 233, 0.92);
+    font: 800 18px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 4px;
+}
+
+.buttons::after {
+    content: "Portfolio Navigation";
+    display: block;
+    margin: auto 4px 0;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(246, 242, 233, 0.42);
+    font: 500 11px/1.4 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+.shell:hover .buttons,
+.shell:focus-within .buttons {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.li {
+    position: relative;
+    min-height: 44px;
+    padding: 12px 12px 11px 20px;
+    border-radius: 6px;
+    font: 700 14px/1.35 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: default;
+    transition: background 0.22s ease, color 0.22s ease;
+}
+
+.li::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid transparent;
+    pointer-events: none;
+    transition: border-color 0.22s ease;
+}
+
+.li::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 18px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(97, 214, 198, 0.85);
+    box-shadow: 0 0 12px rgba(97, 214, 198, 0.5);
+}
+
+.buttons > li:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.buttons > li:hover::after {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.li ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.28s ease, opacity 0.24s ease, padding 0.24s ease;
+}
+
+.li:hover ul,
+.li:focus-within ul {
+    max-height: 360px;
+    padding: 9px 0 3px;
+    opacity: 1;
+}
+
+.li ul li {
+    min-height: 30px;
+    padding: 7px 10px 7px 16px;
+    border-radius: 4px;
+    color: rgba(246, 242, 233, 0.66);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.li ul li:empty {
+    display: none;
+}
+
+.li ul li:hover {
+    color: #f6f2e9;
+    background: rgba(97, 214, 198, 0.16);
+    transform: translateX(3px);
+}
+
 .li a {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Use the color of the parent (.li) */
+    color: inherit;
+    text-decoration: none;
 }
+
 .li a:hover {
-    color: black;/* Add your desired hover color here */ 
+    color: inherit;
+}
+
+@media (max-width: 760px) {
+    .shell {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        min-height: 54px;
+        transform: none;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 0;
+        background: rgba(7, 16, 20, 0.84);
+        overflow-x: auto;
+    }
+
+    .shell::before,
+    .shell::after {
+        display: none;
+    }
+
+    .buttons {
+        width: max-content;
+        height: auto;
+        flex-direction: row;
+        gap: 4px;
+        padding: 8px 10px;
+        opacity: 1;
+        transform: none;
+        overflow-y: visible;
+    }
+
+    .li {
+        min-height: 38px;
+        padding: 11px 13px 10px 24px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .li::before {
+        left: 10px;
+        top: 17px;
+    }
+
+    .li ul {
+        display: none;
+    }
 }

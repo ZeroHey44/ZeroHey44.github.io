@@ -1,23 +1,20 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-        <meta name = "viewport" content="width=device-width,initial-scale=1.0">
-        <title>BlogIndex</title>
-        <link rel="stylesheet" href="/css/DefaultStyle.css">
-        <link rel="stylesheet" href="/css/index2.css">
-        <link rel="stylesheet" href="/css/Nav.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ZeroHey | Portfolio</title>
+        <link rel="stylesheet" href="css/DefaultStyle.css">
+        <link rel="stylesheet" href="css/index2.css">
+        <link rel="stylesheet" href="css/Nav.css">
     </head>
     <body>
-        
         <nav class="shell">
             <ul class="buttons">
                 <li class="li">
                     个人简介
                     <ul>
                         <a href="index.html"><li>简介</li></a>
-                        <li></li>
-                        <li></li>
                     </ul>
                 </li>
                 <li class="li">
@@ -56,84 +53,110 @@
                 <li class="li">
                     用户（暂未开发）
                     <ul>
-                        <a href=""><li>登录</li></a>
-                        <a href=""><li>注册</li></a>
-                        <a href=""><li>登出</li></a>
+                        <a href="Login.html"><li>登录</li></a>
+                        <a href="Login.html"><li>注册</li></a>
+                        <a href="Login.html"><li>登出</li></a>
                     </ul>
                 </li>
             </ul>
         </nav>
-        <div class="Container">
-            <div class="Part1">
-                <div class="Portrait">
-                    <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/mine.png" alt="Portrait">
+
+        <main class="profile-page">
+            <section class="intro-screen snap-section" id="intro">
+                <section class="hero-section">
+                    <div class="hero-copy">
+                        <p class="eyebrow">Virtual Artist / Game Designer</p>
+                        <h1>ZeroHey</h1>
+                        <h2>（//网站施工中，有些不美观的地方）</h2>
+                        <p class="hero-lead">
+                            一个热爱游戏设计的艺术创作者
+                        </p>
+                        <div class="hero-actions">
+                            <a class="primary-link" href="#portfolio">查看作品</a>
+                            <a class="secondary-link" href="#contact">联系我</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="intro-grid" aria-label="创作方向">
+                    <article class="feature-card">
+                        <span class="card-index">01</span>
+                        <h2>游戏设计师</h2>
+                        <p>关注玩法原型、关卡体验、角色控制和叙事氛围，用 Unity / UE 将概念推进到可玩的作品。</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="card-index">02</span>
+                        <h2>数字艺术设计师</h2>
+                        <p>覆盖角色、场景、概念、动画与摄影，擅长用三维流程和后期合成塑造完整的视觉气质。</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="card-index">03</span>
+                        <h2>技术美术</h2>
+                        <p>连接引擎、材质、特效、工具链与资产落地，追求画面表现和制作效率之间的平衡。</p>
+                    </article>
+                </section>
+            </section>
+
+            <section class="section-block snap-section" id="portfolio">
+                <div class="section-heading">
+                    <p class="eyebrow">Portfolio Gateways</p>
+                    <h2>作品集通道</h2>
+                    <p>从这里进入不同类型的作品展示页面，按游戏、视觉、程序、摄影和练习方向浏览。</p>
                 </div>
-                <div class="Name">
-                    <h1>ZeroHey</h1>
-                    <h2>一名虚拟艺术设计师的作品集</h2>
-                </div>                
-            </div>
-            <div class="Part2 Part">
-                <h1>独游开发者</h1>
-                <p></p>
-                <p></p>
-            </div>
-            <div class="Part2 Part">
-                <h1>数字艺术设计师</h1>
-    
-                <h3></h3>
-                <p></p>
-                <p></p>
+                <div class="portfolio-grid">
+                    <a class="portfolio-card" href="IndieGame.html">
+                        <span>01 / Games</span>
+                        <h3>独立游戏作品</h3>
+                        <p>查看游戏项目、演示视频和 Steam 页面。</p>
+                    </a>
+                    <a class="portfolio-card" href="MyArtWork.html">
+                        <span>02 / Digital Art</span>
+                        <h3>数字艺术</h3>
+                        <p>角色、场景、动画与实时渲染作品展示。</p>
+                    </a>
+                    <a class="portfolio-card" href="ConceptDesign.html">
+                        <span>03 / Concept</span>
+                        <h3>概念设计</h3>
+                        <p>快速概念、氛围图和视觉探索合集。</p>
+                    </a>
+                    <a class="portfolio-card" href="MyProgramWork.html">
+                        <span>04 / Programming</span>
+                        <h3>游戏程序</h3>
+                        <p>项目系统、玩法框架和程序实现记录。</p>
+                    </a>
+                    <a class="portfolio-card" href="PhotoGraphy.html">
+                        <span>05 / Photography</span>
+                        <h3>摄影</h3>
+                        <p>旅行途中捕捉的光线、人物和空间。</p>
+                    </a>
+                    <a class="portfolio-card" href="PracticeArtWork.html">
+                        <span>06 / Practice</span>
+                        <h3>练习记录</h3>
+                        <p>动画、后处理、VFX 和美术技术练习。</p>
+                    </a>
+                </div>
+            </section>
 
-            </div>
-            <div class="Part3 Part">
-                <h1>专业技能</h1>
-    
-                <h3></h3>
-    
-                <h3>UE</h3>
-                <p>精通UE的各类程序、美术功能</p>
-    
-                <h3>Unity</h3>
-                <p>精通Unity的各类程序、美术功能</p>   
-
-                <h3>DCC</h3>
-                <p>精通Blender，Zbrush，Substance Painter，Adobe Photoshop，</p>
-                <p> 对Marvelous Designer，3dMax，Maya，Houdini等多款三维设计软件有使用经验</p>
-    
-                <h3>编程语言</h3>
-                <p>熟练掌握C++、C#</p>    
-    
-                <h3>AI工具</h3>
-                <p>精通Stable Diffuse AI绘画，熟练使用ChatGPT、Cascadeur</p>
-    
-                <h3>VR</h3>
-                <p>拥有VR软件开发经验，熟练操作VR设备</p>
-    
-                <h3>GitHub</h3>
-                <p>能流畅地进行版本管理、项目合作和网站托管</p>
-    
-                <h3>视频后处理</h3>
-                <p>熟练掌握Adobe Effect动效制作、Adobe Premiere视频剪辑</p>
-    
-                <h3>网页设计</h3>
-                <p>精通html5、css3，了解js、vue;</p>
-            </div>  
-            <div class="Part4 Part">
-                <h1>欢呼</h1>
-                <p>欢迎热爱艺术与游戏开发的小伙伴加入我，共同进步</p>
-            </div>        
-            <div style="position: absolute;bottom: 0; height: 20px;width: 100%; background: rgba(0, 0, 0, 0.58);"></div>  
-        </div>
-        <div style="background: rgba(255, 255, 255, 0); position: absolute;left:20px;bottom: -210vh; width: 80vw;height: 200px;"></div>
-        <div class="foot">
-            <h1>&copy; 2023 张智勇</h1>
-            <h1>All rights reserved | Designed by 张智勇</h1>
-        </div>
+            <section class="closing-section snap-section" id="contact">
+                <div class="contact-card">
+                    <p class="eyebrow">Create Together</p>
+                    <h2>欢迎热爱艺术与游戏开发的伙伴一起交流。</h2>
+                    <p>这里会持续整理我的独立游戏、数字艺术、程序练习和创作记录。希望它不仅是作品集，也是一条不断进化的创作轨迹。</p>
+                    <div class="closing-links">
+                        <a href="https://www.xiaohongshu.com/user/profile/66a4b1bf000000000b0316e3" target="_blank">小红书</a>
+                        <a href="https://space.bilibili.com/491901209" target="_blank">Bilibili</a>
+                    </div>
+                </div>
+                <div class="screen-foot">
+                    <span>&copy; 2023 张智勇</span>
+                    <span>All rights reserved | Designed by 张智勇</span>
+                </div>
+            </section>
+        </main>
 
         <div class="loader-wrapper">
             <span><h1>Loading......</h1></span>
         </div>
-        <script src="/js/Loading.js"></script>
+        <script src="js/Loading.js"></script>
     </body>
 </html>

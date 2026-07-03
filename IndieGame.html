@@ -1,30 +1,33 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-        <meta name = "viewport" content="width=device-width,initial-scale=1.0">
-        <title>IndieGame</title>
-        <link rel="stylesheet" href="css/DefaultStyle1.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ZeroHey | 独立游戏</title>
+        <link rel="stylesheet" href="css/DefaultStyle.css">
         <link rel="stylesheet" href="css/Nav.css">
-        <link rel="stylesheet" href="css/WorkBox.css">
-        <link rel="stylesheet" href="css/Works.css">
-        <script src="js/album.js"></script>
+        <link rel="stylesheet" href="css/portfolio-pages.css">
     </head>
     <body>
+        <a class="quick-home" href="index.html" aria-label="返回个人简介">HOME</a>
+        <a href="#PageTop">
+            <div class="IconToTop">
+                <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/ToTop.png" alt="Back to top">
+            </div>
+        </a>
+
         <nav class="shell">
             <ul class="buttons">
                 <li class="li">
                     个人简介
                     <ul>
                         <a href="index.html"><li>简介</li></a>
-                        <li></li>
-                        <li></li>
                     </ul>
                 </li>
                 <li class="li">
                     独立游戏
                     <ul>
-                        <a href="IndieGame.html"><li>笔墨山河</li></a>
+                        <a href="IndieGame.html"><li>作品展示</li></a>
                     </ul>
                 </li>
                 <li class="li">
@@ -57,28 +60,125 @@
                 <li class="li">
                     用户（暂未开发）
                     <ul>
-                        <a href=""><li>登录</li></a>
-                        <a href=""><li>注册</li></a>
-                        <a href=""><li>登出</li></a>
+                        <a href="Login.html"><li>登录</li></a>
+                        <a href="Login.html"><li>注册</li></a>
+                        <a href="Login.html"><li>登出</li></a>
                     </ul>
                 </li>
             </ul>
         </nav>
-                
-        <div class="video-container">
-            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114692622125913&bvid=BV1QVMizZERM&cid=30528113631&p=1"
-            scrolling="no"
-            frameborder="no"
-            allowfullscreen="true">
-            </iframe>
-        </div>
-        
-        </section>
+
+        <main class="portfolio-page" id="PageTop">
+            <section class="studio-hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">Indie Game Portfolio</p>
+                    <h1>独立游戏作品</h1>
+                    <p class="hero-lead">
+                        我的游戏项目。
+                    </p>
+                </div>
+                <aside class="hero-meta">
+                    <span>Showcase</span>
+                    <strong>3 Game Projects</strong>
+                    <span>Bilibili video / Steam store / gameplay trailer</span>
+                </aside>
+            </section>
+
+            <section class="project-index" aria-label="游戏目录">
+                <a class="index-card" href="#game-video-01">
+                    <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/IndieGame/InkPaint/Post1.png" alt="B站游戏展示 01">
+                    <div>
+                        <span>WholeProcess</span>
+                        <h2>笔墨山河</h2>
+                        <p>水墨风肉鸽塔防独立游戏</p>
+                    </div>
+                </a>
+                <a class="index-card" href="#farworld-beacon">
+                    <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/IndieGame/FarworldBeacon/Post1.jpg" alt="FARWORLD BEACON">
+                    <div>
+                        <span>Art</span>
+                        <h2>FARWORLD BEACON</h2>
+                        <p>太空经营模拟建设</p>
+                    </div>
+                </a>
+                <a class="index-card" href="#game-video-02">
+                    <img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/IndieGame/FightBoss/Post1.jpg" alt="B站游戏展示 02">
+                    <div>
+                        <span>Art</span>
+                        <h2>办公室用品作战实录</h2>
+                        <p>卡牌战斗 | GameJam</p>
+                    </div>
+                </a>
+            </section>
+
+            <section class="section-heading">
+                <div>
+                    <p class="eyebrow">Playable / Watchable</p>
+                    <h2>项目展示</h2>
+                </div>
+                <p class="section-note">————————————————</p>
+            </section>
+
+            <section class="work-list">
+                <article class="work-card" id="game-video-01">
+                    <div class="work-info">
+                        <span>Bilibili Video</span>
+                        <h2>笔墨山河</h2>
+                        <p>水墨风肉鸽塔防独立游戏</p>
+                        <div class="tag-row">
+                            <em>TechArt</em>
+                            <em>GameDesign</em>
+                            <em>ECS</em>
+                        </div>
+                        <div class="game-link-row">
+                            <a href="https://www.bilibili.com/video/BV1QVMizZERM/?vd_source=24ed3371ee127f4bdf877d3edbadbe50" target="_blank">打开 B 站原视频</a>
+                        </div>
+                    </div>
+                    <div class="work-media">
+                        <iframe src="https://player.bilibili.com/player.html?bvid=BV1QVMizZERM&page=1&high_quality=1&autoplay=0" allowfullscreen="allowfullscreen"></iframe>
+                    </div>
+                </article>
+
+                <article class="work-card reverse" id="farworld-beacon">
+                    <div class="work-info">
+                        <span>Steam Store</span>
+                        <h2>FARWORLD BEACON</h2>
+                        <p>我只是挂出来展示技术，游玩体验一般，大家看视频就好没必要玩</p>
+                        <div class="tag-row">
+                            <em>FARWORLD BEACON</em>
+                        </div>
+                        <div class="game-link-row">
+                            <a href="https://store.steampowered.com/app/4181160/FARWORLD_BEACON/" target="_blank">打开 Steam 页面</a>
+                        </div>
+                    </div>
+                    <div class="work-media">
+                        <iframe src="https://store.steampowered.com/widget/4181160/" title="FARWORLD BEACON on Steam"></iframe>
+                    </div>
+                </article>
+
+                <article class="work-card" id="game-video-02">
+                    <div class="work-info">
+                        <span>Bilibili Video</span>
+                        <h2>办公室用品作战实录</h2>
+                        <p>卡牌战斗 | GameJam</p>
+                        <div class="tag-row">
+                            <em>GameJam</em>
+                        </div>
+                        <div class="game-link-row">
+                            <a href="https://www.bilibili.com/video/BV1VqgQzLEEp/?vd_source=24ed3371ee127f4bdf877d3edbadbe50" target="_blank">打开 B 站原视频</a>
+                        </div>
+                    </div>
+                    <div class="work-media">
+                        <iframe src="https://player.bilibili.com/player.html?bvid=BV1VqgQzLEEp&page=1&high_quality=1&autoplay=0" allowfullscreen="allowfullscreen"></iframe>
+                    </div>
+                </article>
+            </section>
+        </main>
 
         <div class="loader-wrapper">
             <span><h1>Loading......</h1></span>
         </div>
         <script src="js/Loading.js"></script>
-        
+        <script src="js/floating-actions.js"></script>
     </body>
 </html>
