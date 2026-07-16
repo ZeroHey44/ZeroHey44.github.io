@@ -68,23 +68,30 @@ a {
     width: 60px;
     height: 60px;
     padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(208, 255, 248, 0.96);
     border-radius: 50%;
     color: transparent;
     font-size: 0;
-    background:
-        radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.2), transparent 62%),
-        rgba(7, 16, 20, 0.54);
-    background-image:
-        url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Trans1.png"),
-        radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.2), transparent 62%),
-        linear-gradient(rgba(7, 16, 20, 0.58), rgba(7, 16, 20, 0.58));
-    background-repeat: no-repeat;
-    background-position: center 52%, center, center;
-    background-size: 118%, 100%, 100%;
+    background: linear-gradient(145deg, #b8fff4 0%, #65d9df 52%, #3aaec7 100%);
     backdrop-filter: blur(14px);
-    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
-    transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, background-size 0.24s ease;
+    box-shadow:
+        0 0 0 4px rgba(97, 214, 198, 0.2),
+        0 0 26px rgba(97, 214, 198, 0.64),
+        0 14px 38px rgba(0, 0, 0, 0.3);
+    transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+}
+
+.quick-home img {
+    display: block;
+    flex: 0 0 130%;
+    width: 130%;
+    height: 130%;
+    max-width: none;
+    object-fit: contain;
+    clip-path: circle(38.5% at 50% 50%);
+    transform: translateY(3%);
+    filter: brightness(1.45) contrast(1.08) drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+    transition: transform 0.24s ease, filter 0.24s ease;
 }
 
 .quick-home::after {
@@ -109,16 +116,17 @@ a {
 
 .quick-home:hover {
     transform: translateY(-4px) scale(1.03);
-    border-color: rgba(97, 214, 198, 0.62);
-    background-image:
-        linear-gradient(rgba(7, 16, 20, 0.46), rgba(7, 16, 20, 0.46)),
-        url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Trans1.png"),
-        radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.22), transparent 62%),
-        linear-gradient(rgba(7, 16, 20, 0.62), rgba(7, 16, 20, 0.62));
-    background-repeat: no-repeat;
-    background-size: 100%, 126%, 100%, 100%;
-    background-position: center, center 52%, center, center;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36), 0 0 22px rgba(97, 214, 198, 0.14);
+    border-color: #ffffff;
+    background: linear-gradient(145deg, #e5fffb 0%, #8ef4ee 50%, #55cce1 100%);
+    box-shadow:
+        0 0 0 5px rgba(142, 244, 238, 0.28),
+        0 0 38px rgba(142, 244, 238, 0.9),
+        0 18px 48px rgba(0, 0, 0, 0.34);
+}
+
+.quick-home:hover img {
+    transform: translateY(3%);
+    filter: brightness(1.62) contrast(1.08) drop-shadow(0 4px 7px rgba(0, 0, 0, 0.4));
 }
 
 .quick-home:hover::after {
