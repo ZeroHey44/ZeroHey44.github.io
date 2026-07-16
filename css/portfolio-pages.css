@@ -76,7 +76,7 @@ a {
         radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.2), transparent 62%),
         rgba(7, 16, 20, 0.54);
     background-image:
-        url("../image/Trans1.png"),
+        url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Trans1.png"),
         radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.2), transparent 62%),
         linear-gradient(rgba(7, 16, 20, 0.58), rgba(7, 16, 20, 0.58));
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@ a {
     border-color: rgba(97, 214, 198, 0.62);
     background-image:
         linear-gradient(rgba(7, 16, 20, 0.46), rgba(7, 16, 20, 0.46)),
-        url("../image/Trans1.png"),
+        url("https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Trans1.png"),
         radial-gradient(circle at 50% 58%, rgba(97, 214, 198, 0.22), transparent 62%),
         linear-gradient(rgba(7, 16, 20, 0.62), rgba(7, 16, 20, 0.62));
     background-repeat: no-repeat;
@@ -355,6 +355,10 @@ a {
 .showcase-page .project-index {
     margin-bottom: 0;
     scroll-snap-align: none;
+}
+
+.game-page .project-index {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .showcase-page .section-heading {
@@ -804,6 +808,10 @@ a {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .game-page .project-index {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .work-card,
     .work-card.reverse {
         grid-template-columns: 1fr;
@@ -862,6 +870,10 @@ a {
 
     .project-index {
         margin-bottom: 46px;
+    }
+
+    .game-page .project-index {
+        grid-template-columns: 1fr;
     }
 
     .section-heading {
