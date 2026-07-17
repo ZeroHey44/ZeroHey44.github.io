@@ -6,11 +6,15 @@
 
     var startedAt = performance.now();
     var dismissed = false;
-    var minimumVisibleTime = 260;
-    var fallbackTimer = window.setTimeout(dismiss, 7000);
+    var minimumVisibleTime = 180;
+    var fallbackTimer = window.setTimeout(dismiss, 850);
+    var hardStopTimer = window.setTimeout(removeLoader, 1500);
 
     function removeLoader() {
         if (!loader.isConnected) return;
+        dismissed = true;
+        window.clearTimeout(fallbackTimer);
+        window.clearTimeout(hardStopTimer);
         loader.remove();
         document.dispatchEvent(new CustomEvent("site:loader-hidden"));
     }
@@ -22,15 +26,16 @@
 
         var remainingTime = Math.max(0, minimumVisibleTime - (performance.now() - startedAt));
         window.setTimeout(function () {
+            if (!loader.isConnected) return;
             loader.classList.add("is-leaving");
             loader.addEventListener("transitionend", removeLoader, { once: true });
-            window.setTimeout(removeLoader, 900);
+            window.setTimeout(removeLoader, 650);
         }, remainingTime);
     }
 
-    if (document.readyState === "complete") {
+    if (document.readyState !== "loading") {
         dismiss();
     } else {
-        window.addEventListener("load", dismiss, { once: true });
+        document.addEventListener("DOMContentLoaded", dismiss, { once: true });
     }
 }());

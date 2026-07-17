@@ -752,11 +752,14 @@ a {
     bottom: 24px;
     width: 46px;
     height: 46px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border: 2px solid rgba(213, 255, 249, 0.94);
     border-radius: 50%;
-    background: rgba(7, 16, 20, 0.56);
+    background: linear-gradient(145deg, #b9fff4 0%, #65dce1 55%, #3baec8 100%);
     backdrop-filter: blur(14px);
-    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.24);
+    box-shadow:
+        0 0 0 4px rgba(97, 214, 198, 0.18),
+        0 0 24px rgba(97, 214, 198, 0.58),
+        0 14px 38px rgba(0, 0, 0, 0.28);
     opacity: 0;
     pointer-events: none;
     transform: translateY(10px);
@@ -766,7 +769,7 @@ a {
 
 .IconToTop::before {
     content: "↑";
-    color: rgba(246, 242, 233, 0.92);
+    color: rgba(5, 28, 33, 0.96);
     font: 800 18px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
 }
 
@@ -775,16 +778,19 @@ a {
 }
 
 .show-back-top .IconToTop {
-    opacity: 0.86;
+    opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
 }
 
 .IconToTop:hover {
     transform: translateY(-4px);
-    background: rgba(97, 214, 198, 0.14);
-    border-color: rgba(97, 214, 198, 0.58);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(145deg, #e4fffb 0%, #8ef4ee 50%, #55cce1 100%);
+    border-color: #ffffff;
+    box-shadow:
+        0 0 0 5px rgba(142, 244, 238, 0.26),
+        0 0 34px rgba(142, 244, 238, 0.82),
+        0 18px 48px rgba(0, 0, 0, 0.32);
 }
 
 .loader-wrapper {

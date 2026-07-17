@@ -16,7 +16,7 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transition: opacity 0.72s ease, visibility 0s linear 0.72s;
+    transition: opacity 0.55s ease, visibility 0s linear 0.55s;
 }
 
 .loader-wrapper::before {
