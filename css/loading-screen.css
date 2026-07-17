@@ -1,0 +1,91 @@
+.loader-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    place-items: center;
+    overflow: hidden;
+    color: rgba(246, 250, 249, 0.94);
+    background:
+        radial-gradient(circle at 24% 26%, rgba(34, 160, 166, 0.28), transparent 38%),
+        radial-gradient(circle at 78% 72%, rgba(179, 126, 66, 0.2), transparent 42%),
+        linear-gradient(145deg, #061216 0%, #0a2025 48%, #101722 100%);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.72s ease, visibility 0s linear 0.72s;
+}
+
+.loader-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(circle at center, black, transparent 76%);
+    mask-image: radial-gradient(circle at center, black, transparent 76%);
+}
+
+.loader-wrapper.is-leaving {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-width: min(320px, calc(100vw - 64px));
+    justify-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.loader-eyebrow {
+    color: rgba(151, 231, 224, 0.72);
+    font: 600 11px/1.2 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.loader-content strong {
+    font: 500 clamp(28px, 5vw, 52px)/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 0.08em;
+}
+
+.loader-progress {
+    position: relative;
+    width: 132px;
+    height: 1px;
+    margin-top: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.loader-progress::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, #8eece6, transparent);
+    transform: translateX(-100%);
+    animation: loader-scan 1.25s ease-in-out infinite;
+}
+
+@keyframes loader-scan {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-progress::after {
+        animation: none;
+        transform: none;
+    }
+}

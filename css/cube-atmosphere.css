@@ -3,6 +3,7 @@ body {
 }
 
 .cube-atmosphere {
+    --cube-atmosphere-opacity: 0.9;
     position: fixed;
     inset: 0;
     z-index: -1;
@@ -10,17 +11,23 @@ body {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    opacity: 0.9;
+    opacity: 0;
+    transition: opacity 1.15s ease;
+}
+
+.cube-atmosphere.is-visible {
+    opacity: var(--cube-atmosphere-opacity);
 }
 
 @media (max-width: 760px) {
     .cube-atmosphere {
-        opacity: 0.72;
+        --cube-atmosphere-opacity: 0.72;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .cube-atmosphere {
-        opacity: 0.68;
+        --cube-atmosphere-opacity: 0.68;
+        transition-duration: 0.45s;
     }
 }

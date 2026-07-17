@@ -50,6 +50,7 @@
     let edgeBodies = [];
     let shockwaves = [];
     let frameId = 0;
+    let renderingStarted = false;
     let previousTime = performance.now();
     let resizeTimer = 0;
 
@@ -749,6 +750,17 @@
         launchShockwave(event);
     }
 
+    function startRendering() {
+        if (renderingStarted) return;
+        renderingStarted = true;
+        resize();
+        canvas.classList.add("is-visible");
+        if (!document.hidden) {
+            previousTime = performance.now();
+            frameId = window.requestAnimationFrame(render);
+        }
+    }
+
     window.addEventListener("pointermove", setPointer, { passive: true });
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", function (event) {
@@ -770,12 +782,15 @@
         if (document.hidden) {
             window.cancelAnimationFrame(frameId);
             frameId = 0;
-        } else if (!frameId) {
+        } else if (renderingStarted && !frameId) {
             previousTime = performance.now();
             frameId = window.requestAnimationFrame(render);
         }
     });
 
-    resize();
-    frameId = window.requestAnimationFrame(render);
+    if (document.querySelector(".loader-wrapper")) {
+        document.addEventListener("site:loader-hidden", startRendering, { once: true });
+    } else {
+        startRendering();
+    }
 }());

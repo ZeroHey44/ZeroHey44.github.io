@@ -7,6 +7,7 @@
         <title>BlogLogIn</title>
         <link rel="stylesheet" href="css/Login.css">
         <link rel="stylesheet" href="css/cube-atmosphere.css">
+        <link rel="stylesheet" href="css/loading-screen.css">
         <script src="js/jquery-3.7.1.js"></script>
         <script type="text/javascript">
             $(function(){
@@ -45,8 +46,12 @@
             </div>
     </div>
 
-    <div class="loader-wrapper">
-        <span><h1>Loading......</h1></span>
+    <div class="loader-wrapper" role="status" aria-live="polite" aria-label="页面加载中">
+        <div class="loader-content">
+            <span class="loader-eyebrow">ZeroHey / Portfolio</span>
+            <strong>Loading</strong>
+            <span class="loader-progress" aria-hidden="true"></span>
+        </div>
     </div>
     <script src="js/Loading.js"></script>
     <script src="js/cube-atmosphere.js"></script>

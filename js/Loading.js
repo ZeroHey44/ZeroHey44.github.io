@@ -1,13 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // 使用 setTimeout 在延迟 0.5 秒后隐藏并销毁 loader-wrapper
-    setTimeout(function () {
-        var loaderWrapper = document.querySelector('.loader-wrapper');
-        loaderWrapper.style.opacity = '0';
+(function () {
+    "use strict";
 
-        // 在过渡完成后隐藏并销毁元素
-        setTimeout(function () {
-            loaderWrapper.style.display = 'none';
-            loaderWrapper.remove(); // 销毁元素
-        }, 500);
-    }, 500);
-});
+    var loader = document.querySelector(".loader-wrapper");
+    if (!loader) return;
+
+    var startedAt = performance.now();
+    var dismissed = false;
+    var minimumVisibleTime = 260;
+    var fallbackTimer = window.setTimeout(dismiss, 7000);
+
+    function removeLoader() {
+        if (!loader.isConnected) return;
+        loader.remove();
+        document.dispatchEvent(new CustomEvent("site:loader-hidden"));
+    }
+
+    function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        window.clearTimeout(fallbackTimer);
+
+        var remainingTime = Math.max(0, minimumVisibleTime - (performance.now() - startedAt));
+        window.setTimeout(function () {
+            loader.classList.add("is-leaving");
+            loader.addEventListener("transitionend", removeLoader, { once: true });
+            window.setTimeout(removeLoader, 900);
+        }, remainingTime);
+    }
+
+    if (document.readyState === "complete") {
+        dismiss();
+    } else {
+        window.addEventListener("load", dismiss, { once: true });
+    }
+}());
