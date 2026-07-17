@@ -1,0 +1,27 @@
+.sci-fi-cursor {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    opacity: 1;
+    contain: strict;
+    transition: opacity 0.12s ease;
+}
+
+.sci-fi-cursor.is-hidden {
+    opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    html,
+    body,
+    body * {
+        cursor: none !important;
+    }
+
+    body iframe {
+        cursor: auto !important;
+    }
+}

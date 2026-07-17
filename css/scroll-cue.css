@@ -61,7 +61,7 @@
     clip-path: polygon(50% 0%, 88% 12%, 100% 48%, 82% 90%, 44% 100%, 8% 78%, 3% 35%, 24% 8%);
     filter: drop-shadow(0 0 9px rgba(100, 225, 217, 0.58));
     animation:
-        page-cue-float 1.7s ease-in-out infinite,
+        page-cue-float 2.8s ease-in-out infinite,
         page-cue-shape 6.4s ease-in-out infinite;
 }
 
