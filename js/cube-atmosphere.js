@@ -699,9 +699,9 @@
         const elapsed = time / 1000;
         previousTime = time;
 
-        pointer.smoothX += (pointer.x - pointer.smoothX) * 0.72;
-        pointer.smoothY += (pointer.y - pointer.smoothY) * 0.72;
-        pointer.strength += (pointer.targetStrength - pointer.strength) * 0.09;
+        pointer.smoothX = pointer.x;
+        pointer.smoothY = pointer.y;
+        pointer.strength += (pointer.targetStrength - pointer.strength) * 0.4;
         updateShockwaves(delta);
 
         context.clearRect(0, 0, width, height);
