@@ -137,7 +137,7 @@ a {
 .portfolio-page {
     width: min(1180px, calc(100vw - 96px));
     margin: 0 auto;
-    padding: 82px 0 64px;
+    padding: 0 0 64px;
 }
 
 .studio-hero {
@@ -295,10 +295,6 @@ a {
     padding: 58px 0 52px;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
-}
-
-.portfolio-page > .concept-intro {
-    scroll-margin-top: 82px;
 }
 
 .concept-page .studio-hero {
@@ -882,11 +878,11 @@ a {
         width: min(100% - 32px, 680px);
         margin-left: 16px;
         margin-right: 16px;
-        padding: 88px 0 46px;
+        padding: 0 0 46px;
     }
 
     .portfolio-page > .concept-intro {
-        scroll-margin-top: 88px;
+        padding-top: 88px;
     }
 
     .studio-hero,
@@ -1001,6 +997,10 @@ a {
 
     .showcase-page .studio-hero {
         padding: 0 0 32px;
+    }
+
+    .showcase-page > .studio-hero {
+        padding-top: 88px;
     }
 
     .showcase-page .work-list,

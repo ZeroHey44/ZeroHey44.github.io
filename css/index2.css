@@ -397,6 +397,10 @@ a {
     }
 
     .profile-page {
+        padding-top: 0;
+    }
+
+    .intro-screen {
         padding-top: 72px;
     }
 
