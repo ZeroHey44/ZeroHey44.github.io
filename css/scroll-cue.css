@@ -1,0 +1,264 @@
+.page-scroll-cue {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 900;
+    display: grid;
+    justify-items: center;
+    color: rgba(226, 255, 251, 0.92);
+    transform: translateX(-50%);
+    opacity: 1;
+    transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.page-scroll-cue::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    z-index: -1;
+    width: 180px;
+    height: 82px;
+    background: radial-gradient(ellipse at center, rgba(103, 232, 220, 0.38) 0%, rgba(74, 174, 202, 0.16) 42%, transparent 74%);
+    filter: blur(7px);
+    transform: translateX(-50%);
+    animation: page-cue-glow 2.2s ease-in-out infinite;
+}
+
+.page-scroll-cue-label {
+    position: absolute;
+    bottom: calc(100% + 11px);
+    left: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 6px);
+    text-shadow: 0 0 12px rgba(103, 232, 220, 0.68);
+    transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.page-scroll-cue:hover .page-scroll-cue-label,
+.page-scroll-cue:focus-visible .page-scroll-cue-label {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.page-scroll-cue-arrow {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 0;
+    color: #e9fffc;
+    font-size: 23px;
+    line-height: 1;
+    background: linear-gradient(145deg, rgba(205, 255, 249, 0.9), rgba(83, 211, 209, 0.68));
+    clip-path: polygon(50% 0%, 88% 12%, 100% 48%, 82% 90%, 44% 100%, 8% 78%, 3% 35%, 24% 8%);
+    filter: drop-shadow(0 0 9px rgba(100, 225, 217, 0.58));
+    animation:
+        page-cue-float 1.7s ease-in-out infinite,
+        page-cue-shape 6.4s ease-in-out infinite;
+}
+
+.page-scroll-cue-arrow::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(50, 125, 130, 0.76), rgba(8, 30, 39, 0.9));
+    clip-path: inherit;
+}
+
+.page-scroll-cue:hover .page-scroll-cue-arrow {
+    color: #ffffff;
+    background: linear-gradient(145deg, #ffffff, rgba(102, 244, 232, 0.92));
+    filter: drop-shadow(0 0 14px rgba(123, 242, 233, 0.92));
+}
+
+.page-scroll-cue.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 14px);
+}
+
+@keyframes page-cue-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(7px);
+    }
+}
+
+@keyframes page-cue-glow {
+    0%, 100% {
+        opacity: 0.58;
+        transform: translateX(-50%) scale(0.92);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.08);
+    }
+}
+
+@keyframes page-cue-shape {
+    0%, 100% {
+        clip-path: polygon(50% 0%, 88% 12%, 100% 48%, 82% 90%, 44% 100%, 8% 78%, 3% 35%, 24% 8%);
+    }
+    25% {
+        clip-path: polygon(58% 2%, 92% 22%, 95% 63%, 72% 96%, 32% 92%, 4% 65%, 10% 24%, 36% 4%);
+    }
+    50% {
+        clip-path: polygon(45% 3%, 82% 8%, 100% 40%, 91% 82%, 58% 96%, 18% 88%, 0% 55%, 13% 18%);
+    }
+    75% {
+        clip-path: polygon(62% 0%, 94% 31%, 88% 72%, 64% 100%, 24% 91%, 1% 62%, 7% 23%, 37% 9%);
+    }
+}
+
+.IconToTop {
+    top: 5vh;
+    right: auto;
+    bottom: auto;
+    left: 2vw;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    z-index: 1001;
+    transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.IconToTop::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    z-index: -1;
+    width: 132px;
+    height: 68px;
+    background: radial-gradient(ellipse at center, rgba(103, 232, 220, 0.42) 0%, rgba(74, 174, 202, 0.18) 42%, transparent 74%);
+    filter: blur(7px);
+    transform: translateX(-50%);
+    animation: page-cue-glow 2.2s ease-in-out infinite;
+}
+
+.IconToTop-shape {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    color: #e9fffc;
+    font: 800 18px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    text-shadow: 0 0 8px rgba(159, 255, 247, 0.72);
+    background: linear-gradient(145deg, rgba(205, 255, 249, 0.96), rgba(83, 211, 209, 0.82));
+    clip-path: polygon(50% 0%, 88% 12%, 100% 48%, 82% 90%, 44% 100%, 8% 78%, 3% 35%, 24% 8%);
+    filter: drop-shadow(0 0 9px rgba(100, 225, 217, 0.58));
+    animation: page-cue-shape 7.2s ease-in-out infinite reverse;
+    transition: color 0.24s ease, background 0.24s ease, filter 0.24s ease;
+}
+
+.IconToTop-shape::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(50, 125, 130, 0.7), rgba(8, 30, 39, 0.88));
+    clip-path: inherit;
+}
+
+.IconToTop::after {
+    content: "回到顶部";
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 12px);
+    padding: 7px 9px;
+    border: 1px solid rgba(168, 238, 231, 0.22);
+    border-radius: 5px;
+    color: rgba(226, 255, 251, 0.92);
+    background: rgba(7, 26, 33, 0.78);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+    font: 700 11px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-6px, -50%);
+    text-shadow: 0 0 10px rgba(103, 232, 220, 0.46);
+    transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.IconToTop img {
+    display: none;
+}
+
+.show-back-top .IconToTop {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.IconToTop:hover {
+    transform: translateY(-4px);
+    background: transparent;
+    box-shadow: none;
+}
+
+.IconToTop:hover .IconToTop-shape,
+a:focus-visible .IconToTop-shape {
+    color: #ffffff;
+    background: linear-gradient(145deg, #ffffff, rgba(102, 244, 232, 0.96));
+    filter: drop-shadow(0 0 14px rgba(123, 242, 233, 0.92));
+}
+
+.IconToTop:hover::after,
+a:focus-visible .IconToTop::after {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-scroll-cue::before,
+    .page-scroll-cue-arrow,
+    .IconToTop::before,
+    .IconToTop-shape {
+        animation: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .IconToTop {
+        top: auto;
+        right: 16px;
+        bottom: 16px;
+        left: auto;
+        width: 42px;
+        height: 42px;
+    }
+
+    .IconToTop::after {
+        top: auto;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translate(-50%, 6px);
+    }
+
+    .IconToTop:hover::after,
+    a:focus-visible .IconToTop::after {
+        transform: translate(-50%, 0);
+    }
+}

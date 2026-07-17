@@ -6,11 +6,13 @@
         <title>ZeroHey | Portfolio</title>
         <link rel="stylesheet" href="css/DefaultStyle.css">
         <link rel="stylesheet" href="css/index2.css">
+        <link rel="stylesheet" href="css/scroll-cue.css">
         <link rel="stylesheet" href="css/Nav.css">
         <link rel="stylesheet" href="css/cube-atmosphere.css">
         <link rel="stylesheet" href="css/loading-screen.css">
     </head>
     <body>
+        <a href="#intro" aria-label="回到顶部"><div class="IconToTop"><span class="IconToTop-shape" aria-hidden="true">↑</span></div></a>
         <nav class="shell">
             <ul class="buttons">
                 <li class="li">
@@ -69,7 +71,6 @@
                     <div class="hero-copy">
                         <p class="eyebrow">Virtual Artist / Game Designer</p>
                         <h1>ZeroHey</h1>
-                        <h2>（//网站施工中）</h2>
                         <p class="hero-lead">
                             一个热爱游戏设计的艺术创作者
                         </p>
@@ -97,6 +98,11 @@
                         <p>连接引擎、材质、特效、工具链与资产落地，追求画面表现和制作效率之间的平衡。</p>
                     </article>
                 </section>
+
+                <a class="page-scroll-cue" href="#portfolio" aria-label="向下浏览作品集">
+                    <span class="page-scroll-cue-label">向下浏览</span>
+                    <span class="page-scroll-cue-arrow" aria-hidden="true">↓</span>
+                </a>
             </section>
 
             <section class="section-block snap-section" id="portfolio">
@@ -163,6 +169,7 @@
             </div>
         </div>
         <script src="js/Loading.js"></script>
+        <script src="js/floating-actions.js"></script>
         <script src="js/cube-atmosphere.js"></script>
     </body>
 </html>

@@ -7,12 +7,13 @@
         <link rel="stylesheet" href="css/DefaultStyle.css">
         <link rel="stylesheet" href="css/Nav.css">
         <link rel="stylesheet" href="css/portfolio-pages.css">
+        <link rel="stylesheet" href="css/scroll-cue.css">
         <link rel="stylesheet" href="css/cube-atmosphere.css">
         <link rel="stylesheet" href="css/loading-screen.css">
     </head>
     <body>
         <a class="quick-home" href="index.html" aria-label="返回个人简介"><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/Trans1.png" alt="" aria-hidden="true"></a>
-        <a href="#PageTop"><div class="IconToTop"><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/ToTop.png" alt="Back to top"></div></a>
+        <a href="#PageTop"><div class="IconToTop"><span class="IconToTop-shape" aria-hidden="true">↑</span><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/ToTop.png" alt="Back to top"></div></a>
         <nav class="shell">
             <ul class="buttons">
                 <li class="li">个人简介<ul><a href="index.html"><li>简介</li></a></ul></li>
@@ -23,17 +24,38 @@
                 <li class="li">用户（暂未开发）<ul><a href="Login.html"><li>登录</li></a><a href="Login.html"><li>注册</li></a><a href="Login.html"><li>登出</li></a></ul></li>
             </ul>
         </nav>
-MyArtWork.html
         <main class="portfolio-page showcase-page photo-page" id="PageTop">
             <section class="concept-intro">
-            <section class="studio-hero">
-                <div class="hero-copy">
-                    <p class="eyebrow">Photography Notes</p>
-                    <h1>摄影记录</h1>
-                    <p class="hero-lead">旅行途中记录下的瞬间</p>
-                </div>
-                <aside class="hero-meta"><span>Locations</span><strong>———————</strong><span>Landscape, street detail, travel memory</span></aside>
-            </section>
+                <section class="studio-hero">
+                    <div class="hero-copy">
+                        <p class="eyebrow">Photography Notes</p>
+                        <h1>摄影记录</h1>
+                        <p class="hero-lead">旅行途中记录下的瞬间</p>
+                    </div>
+                    <aside class="hero-meta">
+                        <span>Showcase</span>
+                        <strong>10 Photos</strong>
+                        <span>travel memory</span>
+                    </aside>
+                </section>
+
+                <article class="photo-trip-note">
+                    <div class="photo-trip-note-title">
+                        <p class="eyebrow">Travel Note · 2024.07</p>
+                        <h2>赛里木湖·三天徒步</h2>
+                    </div>
+                    <div class="photo-trip-note-copy">
+                        <p>这主要是我于24年7月的暑假，于新疆的旅途中拍摄的。</p>
+                        <p>我当时傻傻地带了个超级重的相机、没法保暖的帐篷和五套衣服，在绕赛里木湖徒步了三天。</p>
+                        <p>看到了赛里木湖的日出日落，在午夜的草原上看到了很多很多火流星。我的审美感知似乎是在这段时间‘觉醒’的。</p>
+                        <p class="photo-trip-note-afterword">幸好遇到了两个经验十分丰富并且非常善良的伙伴，否则不可能有这样精彩的体验。</p>
+                    </div>
+                </article>
+
+                <a class="page-scroll-cue" href="#photo-gallery" aria-label="向下浏览摄影作品">
+                    <span class="page-scroll-cue-label">向下浏览</span>
+                    <span class="page-scroll-cue-arrow" aria-hidden="true">↓</span>
+                </a>
             </section>
 
             <section class="section-heading">
@@ -41,7 +63,7 @@ MyArtWork.html
                 <p class="section-note">————————————————————————</p>
             </section>
 
-            <section class="photo-grid">
+            <section class="photo-grid" id="photo-gallery">
                 <article class="photo-card"><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/PhotoGraphy/LanZhou/LanZhou_LanShan.PNG" alt="兰州兰山"><div><span>LanZhou</span><h2>兰州、兰山，短暂燃烧的一抹橙红。</h2></div></article>
                 <article class="photo-card"><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/PhotoGraphy/Xingjiang/_MG_1263.png" alt="白沙湖"><div><span>Xinjiang</span><h2>白沙湖畔，一个名不副实的湖，两个陌生人送给了我这副清澈的构图。</h2></div></article>
                 <article class="photo-card"><img src="https://zeroheyblog.oss-cn-guangzhou.aliyuncs.com/image/PhotoGraphy/Xingjiang/_MG_0841-%E5%B7%B2%E5%A2%9E%E5%BC%BA-NR.png" alt="赛里木湖"><div><span>Sayram Lake</span><h2>赛里木湖，在荡漾了一天的温暖蓝色后，吐出一口冷冷的橙红。</h2></div></article>

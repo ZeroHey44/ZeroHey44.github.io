@@ -210,6 +210,76 @@ a {
     font-size: 28px;
 }
 
+.photo-trip-note {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(210px, 0.34fr) minmax(0, 0.66fr);
+    gap: clamp(28px, 4vw, 58px);
+    align-items: center;
+    overflow: hidden;
+    padding: clamp(24px, 3vw, 36px);
+    border: 1px solid rgba(139, 224, 218, 0.22);
+    border-radius: 10px;
+    background:
+        radial-gradient(circle at 8% 10%, rgba(208, 170, 99, 0.13), transparent 38%),
+        linear-gradient(115deg, rgba(16, 47, 55, 0.78), rgba(8, 26, 34, 0.58));
+    box-shadow: var(--studio-shadow), inset 0 1px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(18px);
+}
+
+.photo-trip-note::before {
+    content: "";
+    position: absolute;
+    inset: 22px auto 22px 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, transparent, var(--studio-gold), transparent);
+    box-shadow: 0 0 18px rgba(218, 183, 112, 0.36);
+}
+
+.photo-trip-note::after {
+    content: "“";
+    position: absolute;
+    top: -26px;
+    right: 24px;
+    color: rgba(157, 231, 225, 0.07);
+    font-family: Georgia, serif;
+    font-size: 152px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.photo-trip-note-title,
+.photo-trip-note-copy {
+    position: relative;
+    z-index: 1;
+}
+
+.photo-trip-note-title h2 {
+    margin-top: 12px;
+    font-size: clamp(25px, 3vw, 38px);
+    line-height: 1.18;
+}
+
+.photo-trip-note-copy {
+    padding-left: clamp(0px, 2vw, 28px);
+    border-left: 1px solid rgba(139, 224, 218, 0.18);
+}
+
+.photo-trip-note-copy p {
+    width: auto;
+    color: rgba(232, 244, 243, 0.9);
+    font-size: clamp(15px, 1.35vw, 17px);
+    line-height: 1.95;
+    letter-spacing: 0.035em;
+}
+
+.photo-trip-note-copy .photo-trip-note-afterword {
+    margin-top: 12px;
+    color: var(--studio-muted);
+    font-size: 14px;
+}
+
 .project-index {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -225,6 +295,10 @@ a {
     padding: 58px 0 52px;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
+}
+
+.portfolio-page > .concept-intro {
+    scroll-margin-top: 82px;
 }
 
 .concept-page .studio-hero {
@@ -747,52 +821,6 @@ a {
     line-height: 1.8;
 }
 
-.IconToTop {
-    right: 24px;
-    bottom: 24px;
-    width: 46px;
-    height: 46px;
-    border: 2px solid rgba(213, 255, 249, 0.94);
-    border-radius: 50%;
-    background: linear-gradient(145deg, #b9fff4 0%, #65dce1 55%, #3baec8 100%);
-    backdrop-filter: blur(14px);
-    box-shadow:
-        0 0 0 4px rgba(97, 214, 198, 0.18),
-        0 0 24px rgba(97, 214, 198, 0.58),
-        0 14px 38px rgba(0, 0, 0, 0.28);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px);
-    z-index: 1001;
-    transition: opacity 0.24s ease, transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
-}
-
-.IconToTop::before {
-    content: "↑";
-    color: rgba(5, 28, 33, 0.96);
-    font: 800 18px/1 "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
-}
-
-.IconToTop img {
-    display: none;
-}
-
-.show-back-top .IconToTop {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-}
-
-.IconToTop:hover {
-    transform: translateY(-4px);
-    background: linear-gradient(145deg, #e4fffb 0%, #8ef4ee 50%, #55cce1 100%);
-    border-color: #ffffff;
-    box-shadow:
-        0 0 0 5px rgba(142, 244, 238, 0.26),
-        0 0 34px rgba(142, 244, 238, 0.82),
-        0 18px 48px rgba(0, 0, 0, 0.32);
-}
-
 .loader-wrapper {
     z-index: 9999;
 }
@@ -850,20 +878,15 @@ a {
         height: 54px;
     }
 
-    .IconToTop {
-        top: auto;
-        right: 16px;
-        bottom: 16px;
-        left: auto;
-        width: 42px;
-        height: 42px;
-    }
-
     .portfolio-page {
         width: min(100% - 32px, 680px);
         margin-left: 16px;
         margin-right: 16px;
         padding: 88px 0 46px;
+    }
+
+    .portfolio-page > .concept-intro {
+        scroll-margin-top: 88px;
     }
 
     .studio-hero,
@@ -880,6 +903,30 @@ a {
 
     .studio-hero h1 {
         font-size: clamp(44px, 16vw, 76px);
+    }
+
+    .photo-trip-note {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 24px 22px;
+    }
+
+    .photo-trip-note::after {
+        top: -18px;
+        right: 10px;
+        font-size: 112px;
+    }
+
+    .photo-trip-note-copy {
+        padding-top: 18px;
+        padding-left: 0;
+        border-top: 1px solid rgba(139, 224, 218, 0.18);
+        border-left: 0;
+    }
+
+    .photo-trip-note-copy p {
+        font-size: 15px;
+        line-height: 1.85;
     }
 
     .project-index {
