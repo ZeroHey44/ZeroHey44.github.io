@@ -27,6 +27,17 @@
         [0, 4, 5, 1], [2, 3, 7, 6],
         [0, 2, 6, 4], [1, 5, 7, 3]
     ];
+    const edgeGroups = [
+        [0, 1, 11],
+        [2, 3, 8],
+        [4, 5, 9],
+        [6, 7, 10]
+    ];
+    const connectedCubeEdgeGroups = edgeGroups.map(function (edgeGroup) {
+        return createConnectedGroup(edgeGroup.map(function (edgeIndex) {
+            return edges[edgeIndex];
+        }));
+    });
     const sourceVertices = [
         [-1, -1, -1], [1, -1, -1], [-1, 1, -1], [1, 1, -1],
         [-1, -1, 1], [1, -1, 1], [-1, 1, 1], [1, 1, 1]
@@ -37,6 +48,7 @@
     let pixelRatio = 1;
     let cubes = [];
     let edgeBodies = [];
+    let shockwaves = [];
     let frameId = 0;
     let previousTime = performance.now();
     let resizeTimer = 0;
@@ -62,6 +74,26 @@
         return start + (end - start) * amount;
     }
 
+    function createConnectedGroup(connectedEdges) {
+        const vertexIndices = [];
+        const degrees = {};
+        connectedEdges.forEach(function (edge) {
+            edge.forEach(function (vertexIndex) {
+                if (!vertexIndices.includes(vertexIndex)) {
+                    vertexIndices.push(vertexIndex);
+                }
+                degrees[vertexIndex] = (degrees[vertexIndex] || 0) + 1;
+            });
+        });
+        return {
+            edges: connectedEdges,
+            vertexIndices,
+            jointIndices: vertexIndices.filter(function (vertexIndex) {
+                return degrees[vertexIndex] > 1;
+            })
+        };
+    }
+
     function makeFragmentTraits(count, type) {
         return Array.from({ length: count }, function () {
             return {
@@ -73,12 +105,34 @@
         });
     }
 
+    function makeEdgeGroupTraits(count) {
+        return Array.from({ length: count }, function () {
+            return {
+                directionOffset: random(-0.78, 0.78),
+                distance: random(0.34, 1.08),
+                rotation: random(-0.44, 0.44),
+                scale: random(0.74, 1.18),
+                angleSpread: random(0.28, 0.62)
+            };
+        });
+    }
+
+    function makePolylineGroups(edgeCount) {
+        if (edgeCount === 2) {
+            return [[0, 1]];
+        }
+        if (edgeCount === 4) {
+            return [[0, 1], [2, 3]];
+        }
+        return [[0, 1, 2], [3, 4]];
+    }
+
     function makeCube() {
         const depth = Math.random();
         return {
             x: random(-40, width + 40),
             y: random(-40, height + 40),
-            size: mix(13, 38, depth),
+            size: mix(13, 56, depth),
             depth,
             velocityX: random(-5.5, 5.5) * (0.45 + depth * 0.65),
             velocityY: random(-4.5, 4.5) * (0.45 + depth * 0.65),
@@ -91,15 +145,20 @@
             phase: random(0, Math.PI * 2),
             hue: random(178, 205),
             seed: Math.random() * 1000,
+            shockLevel: 0,
+            shockRepelX: 0,
+            shockRepelY: 0,
             faceTraits: makeFragmentTraits(faces.length, "face"),
-            edgeTraits: makeFragmentTraits(edges.length, "edge")
+            edgeGroupTraits: makeEdgeGroupTraits(edgeGroups.length),
+            faceOrder: [0, 1, 2, 3, 4, 5],
+            faceDepths: [0, 0, 0, 0, 0, 0]
         };
     }
 
     function makeEdgeBody() {
         const edgeOptions = [2, 4, 5];
         const edgeCount = edgeOptions[Math.floor(Math.random() * edgeOptions.length)];
-        const segmentSize = random(12, 27);
+        const segmentSize = random(12, 38);
         const points = [{ x: 0, y: 0 }];
         let angle = random(0, Math.PI * 2);
 
@@ -128,6 +187,12 @@
             point.y -= center.y;
         });
 
+        const segmentGroups = makePolylineGroups(edgeCount);
+        const connectedGroups = segmentGroups.map(function (segmentGroup) {
+            return createConnectedGroup(segmentGroup.map(function (segmentIndex) {
+                return [segmentIndex, segmentIndex + 1];
+            }));
+        });
         const depth = Math.random();
         return {
             x: random(-60, width + 60),
@@ -142,7 +207,12 @@
             phase: random(0, Math.PI * 2),
             hue: random(32, 58),
             seed: Math.random() * 1000,
-            segmentTraits: makeFragmentTraits(edgeCount, "edge")
+            shockLevel: 0,
+            shockRepelX: 0,
+            shockRepelY: 0,
+            segmentGroups,
+            connectedGroups,
+            groupTraits: makeEdgeGroupTraits(segmentGroups.length)
         };
     }
 
@@ -165,7 +235,7 @@
     function resize() {
         width = Math.max(1, window.innerWidth);
         height = Math.max(1, window.innerHeight);
-        pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 1.2);
         canvas.width = Math.round(width * pixelRatio);
         canvas.height = Math.round(height * pixelRatio);
         canvas.style.width = width + "px";
@@ -187,9 +257,15 @@
         if (edgeBodies.length > targetEdgeBodyCount) {
             edgeBodies.length = targetEdgeBodyCount;
         }
+        cubes.sort(function (first, second) {
+            return first.depth - second.depth;
+        });
+        edgeBodies.sort(function (first, second) {
+            return first.depth - second.depth;
+        });
     }
 
-    function rotateVertex(vertex, cube, elapsed) {
+    function projectVertices(cube, elapsed) {
         const angleX = cube.rotationX + elapsed * cube.spinX;
         const angleY = cube.rotationY + elapsed * cube.spinY;
         const angleZ = cube.rotationZ + elapsed * cube.spinZ;
@@ -200,29 +276,20 @@
         const sinZ = Math.sin(angleZ);
         const cosZ = Math.cos(angleZ);
 
-        let x = vertex[0];
-        let y = vertex[1] * cosX - vertex[2] * sinX;
-        let z = vertex[1] * sinX + vertex[2] * cosX;
-
-        const rotatedX = x * cosY + z * sinY;
-        z = -x * sinY + z * cosY;
-        x = rotatedX;
-
-        return {
-            x: x * cosZ - y * sinZ,
-            y: x * sinZ + y * cosZ,
-            z
-        };
-    }
-
-    function projectVertices(cube, elapsed) {
         return sourceVertices.map(function (vertex) {
-            const rotated = rotateVertex(vertex, cube, elapsed);
-            const perspective = 1 / (1 + rotated.z * 0.16);
+            let x = vertex[0];
+            let y = vertex[1] * cosX - vertex[2] * sinX;
+            let z = vertex[1] * sinX + vertex[2] * cosX;
+            const rotatedX = x * cosY + z * sinY;
+            z = -x * sinY + z * cosY;
+            x = rotatedX;
+            const projectedX = x * cosZ - y * sinZ;
+            const projectedY = x * sinZ + y * cosZ;
+            const perspective = 1 / (1 + z * 0.16);
             return {
-                x: rotated.x * cube.size * perspective,
-                y: rotated.y * cube.size * perspective,
-                z: rotated.z
+                x: projectedX * cube.size * perspective,
+                y: projectedY * cube.size * perspective,
+                z
             };
         });
     }
@@ -230,6 +297,91 @@
     function smoothInfluence(distance, radius) {
         const amount = clamp(1 - distance / radius, 0, 1);
         return amount * amount * (3 - 2 * amount);
+    }
+
+    function launchShockwave(event) {
+        if (event.button !== undefined && event.button !== 0) {
+            return;
+        }
+        shockwaves.push({
+            x: event.clientX,
+            y: event.clientY,
+            age: 0,
+            duration: 1.6,
+            radius: 0,
+            maxRadius: Math.hypot(width, height) + 160
+        });
+        if (shockwaves.length > 4) {
+            shockwaves.shift();
+        }
+    }
+
+    function updateShockwaves(delta) {
+        shockwaves.forEach(function (wave) {
+            wave.age += delta;
+            const progress = clamp(wave.age / wave.duration, 0, 1);
+            wave.radius = wave.maxRadius * (1 - Math.pow(1 - progress, 1.35));
+        });
+        shockwaves = shockwaves.filter(function (wave) {
+            return wave.age < wave.duration;
+        });
+    }
+
+    function shockwaveInfluence(wave, objectX, objectY) {
+        const progress = clamp(wave.age / wave.duration, 0, 1);
+        const distance = Math.hypot(objectX - wave.x, objectY - wave.y);
+        const band = mix(58, 145, progress);
+        const distanceFromWave = distance - wave.radius;
+        const ringAmount = Math.exp(-(distanceFromWave * distanceFromWave) / (2 * band * band));
+        return ringAmount * 0.3 * (1 - progress * 0.55);
+    }
+
+    function influenceAt(object, pointerRadius, delta) {
+        const pointerDeltaX = object.x - pointer.smoothX;
+        const pointerDeltaY = object.y - pointer.smoothY;
+        const pointerDistance = Math.hypot(pointerDeltaX, pointerDeltaY);
+        const pointerAmount = smoothInfluence(pointerDistance, pointerRadius) * pointer.strength;
+        let liveShockAmount = 0;
+        let liveShockVectorX = 0;
+        let liveShockVectorY = 0;
+
+        shockwaves.forEach(function (wave) {
+            const waveAmount = shockwaveInfluence(wave, object.x, object.y);
+            if (waveAmount < 0.001) return;
+            const waveDeltaX = object.x - wave.x;
+            const waveDeltaY = object.y - wave.y;
+            const waveDistance = Math.hypot(waveDeltaX, waveDeltaY);
+            if (waveDistance > 0.001) {
+                liveShockVectorX += waveDeltaX / waveDistance * waveAmount;
+                liveShockVectorY += waveDeltaY / waveDistance * waveAmount;
+            }
+            liveShockAmount = 1 - (1 - liveShockAmount) * (1 - waveAmount);
+        });
+
+        if (liveShockAmount > object.shockLevel) {
+            object.shockLevel += (liveShockAmount - object.shockLevel) * 0.58;
+        } else {
+            object.shockLevel = Math.max(liveShockAmount, object.shockLevel - delta * 0.17);
+        }
+
+        const liveShockVectorLength = Math.hypot(liveShockVectorX, liveShockVectorY);
+        if (liveShockVectorLength > 0.001) {
+            object.shockRepelX = liveShockVectorX / liveShockVectorLength;
+            object.shockRepelY = liveShockVectorY / liveShockVectorLength;
+        }
+
+        const shockAmount = object.shockLevel;
+        const combinedAmount = 1 - (1 - pointerAmount) * (1 - shockAmount);
+        const vectorX = object.shockRepelX * shockAmount;
+        const vectorY = object.shockRepelY * shockAmount;
+        const vectorLength = Math.hypot(vectorX, vectorY);
+        return {
+            amount: clamp(combinedAmount, 0, 1),
+            pointerAmount,
+            shockAmount,
+            repelX: vectorLength > 0.001 ? vectorX / vectorLength : 0,
+            repelY: vectorLength > 0.001 ? vectorY / vectorLength : 0
+        };
     }
 
     function fragmentDirection(x, y, seed) {
@@ -250,7 +402,60 @@
         };
     }
 
-    function transformedFace(points, face, cube, influence, faceIndex) {
+    function normalizeAngle(angle) {
+        let normalized = angle;
+        while (normalized > Math.PI) normalized -= Math.PI * 2;
+        while (normalized < -Math.PI) normalized += Math.PI * 2;
+        return normalized;
+    }
+
+    function transformConnectedEdges(points, connectedGroup, traits, influence, size, seed, repel) {
+        const vertexIndices = connectedGroup.vertexIndices;
+        let centerX = 0;
+        let centerY = 0;
+        vertexIndices.forEach(function (vertexIndex) {
+            centerX += points[vertexIndex].x;
+            centerY += points[vertexIndex].y;
+        });
+        centerX /= vertexIndices.length;
+        centerY /= vertexIndices.length;
+
+        const originDirection = fragmentDirection(centerX, centerY, seed);
+        const direction = rotateDirection(
+            originDirection,
+            traits.directionOffset
+        );
+        const fragmentPower = Math.pow(influence, 1.16);
+        const releaseDistance = size * fragmentPower * (0.78 + traits.distance * 0.56);
+        const breakDistance = size * fragmentPower * traits.distance * 0.52;
+        const repelDistance = size * fragmentPower * (1.08 + traits.distance * 0.62);
+        const offsetX = originDirection.x * releaseDistance + direction.x * breakDistance + repel.x * repelDistance;
+        const offsetY = originDirection.y * releaseDistance + direction.y * breakDistance + repel.y * repelDistance;
+        const groupScale = mix(1, traits.scale, influence);
+        const groupRotation = traits.rotation * influence;
+        const angleMultiplier = 1 + traits.angleSpread * influence;
+        const anchorPoint = points[vertexIndices[0]];
+        const anchorAngle = Math.atan2(anchorPoint.y - centerY, anchorPoint.x - centerX);
+        const transformed = {};
+
+        vertexIndices.forEach(function (vertexIndex) {
+            const point = points[vertexIndex];
+            const relativeX = point.x - centerX;
+            const relativeY = point.y - centerY;
+            const radius = Math.hypot(relativeX, relativeY) * groupScale;
+            const baseAngle = Math.atan2(relativeY, relativeX);
+            const relativeAngle = normalizeAngle(baseAngle - anchorAngle);
+            const openedAngle = anchorAngle + relativeAngle * angleMultiplier + groupRotation;
+            transformed[vertexIndex] = {
+                x: centerX + Math.cos(openedAngle) * radius + offsetX,
+                y: centerY + Math.sin(openedAngle) * radius + offsetY
+            };
+        });
+
+        return transformed;
+    }
+
+    function transformedFace(points, face, cube, influence, faceIndex, repel) {
         let centerX = 0;
         let centerY = 0;
         for (let index = 0; index < face.length; index += 1) {
@@ -261,13 +466,17 @@
         centerY /= face.length;
 
         const traits = cube.faceTraits[faceIndex];
+        const originDirection = fragmentDirection(centerX, centerY, cube.seed + faceIndex * 0.37);
         const direction = rotateDirection(
-            fragmentDirection(centerX, centerY, cube.seed + faceIndex * 0.37),
+            originDirection,
             traits.directionOffset
         );
-        const breakDistance = cube.size * influence * traits.distance;
-        const offsetX = direction.x * breakDistance;
-        const offsetY = direction.y * breakDistance;
+        const fragmentPower = Math.pow(influence, 1.08);
+        const releaseDistance = cube.size * fragmentPower * (0.74 + traits.distance * 0.54);
+        const breakDistance = cube.size * fragmentPower * traits.distance * 0.5;
+        const repelDistance = cube.size * Math.pow(influence, 1.05) * (1.02 + traits.distance * 0.52);
+        const offsetX = originDirection.x * releaseDistance + direction.x * breakDistance + repel.x * repelDistance;
+        const offsetY = originDirection.y * releaseDistance + direction.y * breakDistance + repel.y * repelDistance;
         const fragmentRotation = traits.rotation * influence;
         const fragmentScale = mix(1, traits.scale, influence);
         const sin = Math.sin(fragmentRotation);
@@ -283,21 +492,23 @@
         });
     }
 
-    function drawFaces(cube, points, influence) {
-        const sortedFaces = faces.map(function (face, index) {
-            const depth = face.reduce(function (sum, vertexIndex) {
+    function drawFaces(cube, points, influence, repel, pointerFade, shockHighlight) {
+        const highlightStrength = clamp(shockHighlight / 0.3, 0, 1);
+        faces.forEach(function (face, faceIndex) {
+            cube.faceDepths[faceIndex] = face.reduce(function (sum, vertexIndex) {
                 return sum + points[vertexIndex].z;
             }, 0) / face.length;
-            return { face, index, depth };
-        }).sort(function (first, second) {
-            return first.depth - second.depth;
         });
-
-        sortedFaces.forEach(function (entry) {
-            const polygon = transformedFace(points, entry.face, cube, influence, entry.index);
+        cube.faceOrder.sort(function (firstIndex, secondIndex) {
+            return cube.faceDepths[firstIndex] - cube.faceDepths[secondIndex];
+        });
+        cube.faceOrder.forEach(function (faceIndex) {
+            const polygon = transformedFace(points, faces[faceIndex], cube, influence, faceIndex, repel);
             const hue = cube.hue + influence * 62;
-            const fillAlpha = (0.012 + cube.depth * 0.016) + influence * 0.032;
-            const strokeAlpha = 0.035 + cube.depth * 0.035 + influence * 0.1;
+            const highlightedHue = mix(hue, 187, highlightStrength);
+            const faceVisibility = Math.pow(1 - clamp(pointerFade, 0, 1), 1.45);
+            const fillAlpha = ((0.012 + cube.depth * 0.016) + influence * 0.024 + highlightStrength * 0.03) * faceVisibility;
+            const strokeAlpha = (0.035 + cube.depth * 0.035 + influence * 0.08 + highlightStrength * 0.16) * Math.sqrt(faceVisibility);
 
             context.beginPath();
             context.moveTo(cube.x + polygon[0].x, cube.y + polygon[0].y);
@@ -305,54 +516,50 @@
                 context.lineTo(cube.x + polygon[index].x, cube.y + polygon[index].y);
             }
             context.closePath();
-            context.fillStyle = "hsla(" + hue + ", 82%, 65%, " + fillAlpha + ")";
-            context.strokeStyle = "hsla(" + hue + ", 88%, 72%, " + strokeAlpha + ")";
+            context.fillStyle = "hsla(" + highlightedHue + ", 92%, " + (65 + highlightStrength * 26) + "%, " + fillAlpha + ")";
+            context.strokeStyle = "hsla(" + highlightedHue + ", 100%, " + (72 + highlightStrength * 24) + "%, " + strokeAlpha + ")";
             context.lineWidth = 0.45 + cube.depth * 0.3;
             context.fill();
             context.stroke();
         });
     }
 
-    function drawEdges(cube, points, influence) {
+    function drawEdges(cube, points, influence, repel, shockHighlight) {
         const hue = cube.hue + influence * 62;
-        const fragmentPower = Math.pow(influence, 1.2);
+        const highlightStrength = clamp(shockHighlight / 0.3, 0, 1);
 
-        edges.forEach(function (edge, edgeIndex) {
-            const traits = cube.edgeTraits[edgeIndex];
-            const first = points[edge[0]];
-            const second = points[edge[1]];
-            const midpointX = (first.x + second.x) * 0.5;
-            const midpointY = (first.y + second.y) * 0.5;
-            const direction = rotateDirection(
-                fragmentDirection(midpointX, midpointY, cube.seed + edgeIndex * 0.71),
-                traits.directionOffset
+        connectedCubeEdgeGroups.forEach(function (connectedGroup, groupIndex) {
+            const transformed = transformConnectedEdges(
+                points,
+                connectedGroup,
+                cube.edgeGroupTraits[groupIndex],
+                influence,
+                cube.size,
+                cube.seed + groupIndex * 1.37,
+                repel
             );
-            const breakDistance = cube.size * fragmentPower * traits.distance;
-            const offsetX = direction.x * breakDistance;
-            const offsetY = direction.y * breakDistance;
-            const visibleLength = mix(1, traits.scale, influence);
-            const edgeRotation = traits.rotation * influence;
-            const edgeSin = Math.sin(edgeRotation);
-            const edgeCos = Math.cos(edgeRotation);
-            const rawHalfX = (second.x - first.x) * 0.5 * visibleLength;
-            const rawHalfY = (second.y - first.y) * 0.5 * visibleLength;
-            const halfX = rawHalfX * edgeCos - rawHalfY * edgeSin;
-            const halfY = rawHalfX * edgeSin + rawHalfY * edgeCos;
-            const centerX = cube.x + midpointX + offsetX;
-            const centerY = cube.y + midpointY + offsetY;
 
-            context.beginPath();
-            context.moveTo(centerX - halfX, centerY - halfY);
-            context.lineTo(centerX + halfX, centerY + halfY);
-            context.strokeStyle = "hsla(" + hue + ", 94%, 76%, " + (0.24 + cube.depth * 0.3 + influence * 0.34) + ")";
-            context.lineWidth = 0.65 + cube.depth * 0.75 + influence * 0.45;
-            context.stroke();
+            connectedGroup.edges.forEach(function (edge) {
+                const first = transformed[edge[0]];
+                const second = transformed[edge[1]];
 
-            if (influence > 0.58 && edgeIndex % 2 === 0) {
                 context.beginPath();
-                context.arc(centerX + halfX, centerY + halfY, 0.8 + influence * 1.1, 0, Math.PI * 2);
-                context.fillStyle = "hsla(" + hue + ", 100%, 82%, " + (influence * 0.55) + ")";
-                context.fill();
+                context.moveTo(cube.x + first.x, cube.y + first.y);
+                context.lineTo(cube.x + second.x, cube.y + second.y);
+                const edgeHue = mix(hue + groupIndex * 4, 185, highlightStrength);
+                context.strokeStyle = "hsla(" + edgeHue + ", 100%, " + (76 + highlightStrength * 20) + "%, " + (0.24 + cube.depth * 0.3 + influence * 0.34 + highlightStrength * 0.16) + ")";
+                context.lineWidth = 0.65 + cube.depth * 0.75 + influence * 0.45;
+                context.stroke();
+            });
+
+            if (influence > 0.34) {
+                connectedGroup.jointIndices.forEach(function (vertexIndex) {
+                    const joint = transformed[vertexIndex];
+                    context.beginPath();
+                    context.arc(cube.x + joint.x, cube.y + joint.y, 0.7 + influence * 0.9, 0, Math.PI * 2);
+                    context.fillStyle = "hsla(" + (hue + groupIndex * 4) + ", 100%, 84%, " + (0.2 + influence * 0.42) + ")";
+                    context.fill();
+                });
             }
         });
     }
@@ -369,57 +576,43 @@
         });
     }
 
-    function drawEdgeBody(body, influence, elapsed) {
+    function drawEdgeBody(body, influence, elapsed, repel, shockHighlight) {
         const points = rotatedEdgeBodyPoints(body, elapsed);
-        const fragmentPower = Math.pow(influence, 1.18);
         const hue = (body.hue + influence * 145) % 360;
+        const highlightStrength = clamp(shockHighlight / 0.3, 0, 1);
 
-        body.segmentTraits.forEach(function (traits, segmentIndex) {
-            const first = points[segmentIndex];
-            const second = points[segmentIndex + 1];
-            const midpointX = (first.x + second.x) * 0.5;
-            const midpointY = (first.y + second.y) * 0.5;
-            const direction = rotateDirection(
-                fragmentDirection(midpointX, midpointY, body.seed + segmentIndex * 0.83),
-                traits.directionOffset
+        body.connectedGroups.forEach(function (connectedGroup, groupIndex) {
+            const transformed = transformConnectedEdges(
+                points,
+                connectedGroup,
+                body.groupTraits[groupIndex],
+                influence,
+                body.segmentSize,
+                body.seed + groupIndex * 1.91,
+                repel
             );
-            const breakDistance = body.segmentSize * fragmentPower * traits.distance * 1.25;
-            const offsetX = direction.x * breakDistance;
-            const offsetY = direction.y * breakDistance;
-            const segmentScale = mix(1, traits.scale, influence);
-            const segmentRotation = traits.rotation * influence;
-            const segmentSin = Math.sin(segmentRotation);
-            const segmentCos = Math.cos(segmentRotation);
-            const rawHalfX = (second.x - first.x) * 0.5 * segmentScale;
-            const rawHalfY = (second.y - first.y) * 0.5 * segmentScale;
-            const halfX = rawHalfX * segmentCos - rawHalfY * segmentSin;
-            const halfY = rawHalfX * segmentSin + rawHalfY * segmentCos;
-            const centerX = body.x + midpointX + offsetX;
-            const centerY = body.y + midpointY + offsetY;
 
-            context.beginPath();
-            context.moveTo(centerX - halfX, centerY - halfY);
-            context.lineTo(centerX + halfX, centerY + halfY);
-            context.strokeStyle = "hsla(" + hue + ", 96%, 76%, " + (0.25 + body.depth * 0.34 + influence * 0.28) + ")";
-            context.lineWidth = 0.75 + body.depth * 0.95 + influence * 0.38;
-            context.stroke();
+            connectedGroup.edges.forEach(function (edge) {
+                const first = transformed[edge[0]];
+                const second = transformed[edge[1]];
 
-            if (influence > 0.5) {
                 context.beginPath();
-                context.arc(centerX - halfX, centerY - halfY, 0.65 + body.depth * 0.7, 0, Math.PI * 2);
-                context.fillStyle = "hsla(" + hue + ", 100%, 84%, " + (influence * 0.42) + ")";
-                context.fill();
-            }
-        });
+                context.moveTo(body.x + first.x, body.y + first.y);
+                context.lineTo(body.x + second.x, body.y + second.y);
+                const edgeHue = mix(hue + groupIndex * 7, 184, highlightStrength);
+                context.strokeStyle = "hsla(" + edgeHue + ", 100%, " + (76 + highlightStrength * 20) + "%, " + (0.25 + body.depth * 0.34 + influence * 0.28 + highlightStrength * 0.16) + ")";
+                context.lineWidth = 0.75 + body.depth * 0.95 + influence * 0.38;
+                context.stroke();
+            });
 
-        if (influence < 0.82) {
-            points.forEach(function (point) {
+            connectedGroup.jointIndices.forEach(function (vertexIndex) {
+                const joint = transformed[vertexIndex];
                 context.beginPath();
-                context.arc(body.x + point.x, body.y + point.y, 0.7 + body.depth * 0.75, 0, Math.PI * 2);
-                context.fillStyle = "hsla(" + hue + ", 94%, 82%, " + ((1 - influence) * (0.22 + body.depth * 0.3)) + ")";
+                context.arc(body.x + joint.x, body.y + joint.y, 0.7 + body.depth * 0.75 + influence * 0.35, 0, Math.PI * 2);
+                context.fillStyle = "hsla(" + (hue + groupIndex * 7) + ", 100%, 84%, " + (0.24 + body.depth * 0.25 + influence * 0.22) + ")";
                 context.fill();
             });
-        }
+        });
     }
 
     function drawPointerAtmosphere(radius) {
@@ -447,6 +640,27 @@
         context.strokeStyle = "rgba(169, 247, 255, " + (0.055 * pointer.strength) + ")";
         context.lineWidth = 1;
         context.stroke();
+    }
+
+    function drawShockwaves() {
+        shockwaves.forEach(function (wave) {
+            const progress = clamp(wave.age / wave.duration, 0, 1);
+            const visibility = Math.pow(1 - progress, 0.72);
+
+            context.beginPath();
+            context.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+            context.strokeStyle = "rgba(151, 239, 255, " + (0.2 * visibility) + ")";
+            context.lineWidth = mix(3.2, 0.8, progress);
+            context.stroke();
+
+            if (wave.radius > 12) {
+                context.beginPath();
+                context.arc(wave.x, wave.y, Math.max(0, wave.radius - mix(18, 54, progress)), 0, Math.PI * 2);
+                context.strokeStyle = "rgba(141, 115, 255, " + (0.08 * visibility) + ")";
+                context.lineWidth = mix(7, 2, progress);
+                context.stroke();
+            }
+        });
     }
 
     function updateCube(cube, delta, elapsed) {
@@ -484,9 +698,10 @@
         const elapsed = time / 1000;
         previousTime = time;
 
-        pointer.smoothX += (pointer.x - pointer.smoothX) * 0.12;
-        pointer.smoothY += (pointer.y - pointer.smoothY) * 0.12;
+        pointer.smoothX += (pointer.x - pointer.smoothX) * 0.72;
+        pointer.smoothY += (pointer.y - pointer.smoothY) * 0.72;
         pointer.strength += (pointer.targetStrength - pointer.strength) * 0.09;
+        updateShockwaves(delta);
 
         context.clearRect(0, 0, width, height);
         context.save();
@@ -496,29 +711,27 @@
 
         const influenceRadius = clamp(Math.min(width, height) * 0.32, 190, 330);
         drawPointerAtmosphere(influenceRadius);
-
-        edgeBodies.sort(function (first, second) {
-            return first.depth - second.depth;
-        });
+        drawShockwaves();
 
         edgeBodies.forEach(function (body) {
             updateEdgeBody(body, delta, elapsed);
-            const distance = Math.hypot(body.x - pointer.smoothX, body.y - pointer.smoothY);
-            const influence = smoothInfluence(distance, influenceRadius) * pointer.strength;
-            drawEdgeBody(body, influence, reducedMotion ? 0 : elapsed);
-        });
-
-        cubes.sort(function (first, second) {
-            return first.depth - second.depth;
+            const influence = influenceAt(body, influenceRadius, delta);
+            drawEdgeBody(
+                body,
+                influence.amount,
+                reducedMotion ? 0 : elapsed,
+                { x: influence.repelX, y: influence.repelY },
+                influence.shockAmount
+            );
         });
 
         cubes.forEach(function (cube) {
             updateCube(cube, delta, elapsed);
-            const distance = Math.hypot(cube.x - pointer.smoothX, cube.y - pointer.smoothY);
-            const influence = smoothInfluence(distance, influenceRadius) * pointer.strength;
+            const influence = influenceAt(cube, influenceRadius, delta);
             const points = projectVertices(cube, reducedMotion ? 0 : elapsed);
-            drawFaces(cube, points, influence);
-            drawEdges(cube, points, influence);
+            const repel = { x: influence.repelX, y: influence.repelY };
+            drawFaces(cube, points, influence.amount, repel, influence.pointerAmount, influence.shockAmount);
+            drawEdges(cube, points, influence.amount, repel, influence.shockAmount);
         });
 
         context.restore();
@@ -531,8 +744,13 @@
         pointer.targetStrength = 1;
     }
 
+    function handlePointerDown(event) {
+        setPointer(event);
+        launchShockwave(event);
+    }
+
     window.addEventListener("pointermove", setPointer, { passive: true });
-    window.addEventListener("pointerdown", setPointer, { passive: true });
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", function (event) {
         if (event.pointerType !== "mouse") {
             pointer.targetStrength = 0;
